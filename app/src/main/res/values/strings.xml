@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hungry</string>
+    <string name="username_hint">王小明</string>
 </resources>
