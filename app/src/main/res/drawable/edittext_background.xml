@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/login_register_input_background"/>  <!-- 背景顏色 -->
-    <corners android:radius="8dp"/>  <!-- 圓角半徑 -->
-    <stroke android:width="1dp" android:color="@color/login_register_input_border"/>  <!-- 邊框 -->
+    <solid android:color="@color/login_register_input_background"/> <!-- 背景顏色 -->
+    <corners android:radius="8dp"/> <!-- 圓角半徑 -->
+    <stroke android:width="1dp" android:color="@color/login_register_input_border"/> <!-- 邊框 -->
 </shape>

@@ -157,30 +157,35 @@
                 app:srcCompat="@drawable/crop_google_button" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tv_login_not_have_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:layout_marginBottom="200dp"
                 android:text="@string/not_have_account"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/login_register_title"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/ibtn_login_facebook"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/ibtn_login_facebook"
                 app:layout_constraintTop_toBottomOf="@+id/ibtn_login_facebook" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/tv_login_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/register_btn"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/login_register_btn_background"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toTopOf="@+id/textView9" />
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_login_not_have_account"
+                app:layout_constraintStart_toEndOf="@+id/tv_login_not_have_account"
+                app:layout_constraintTop_toTopOf="@+id/tv_login_not_have_account" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

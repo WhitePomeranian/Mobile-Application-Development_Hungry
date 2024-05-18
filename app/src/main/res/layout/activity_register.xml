@@ -239,7 +239,10 @@
                 android:layout_marginStart="16dp"
                 android:text="@string/login_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/login_register_btn_background"
                 android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_register_already_have_account"
                 app:layout_constraintStart_toEndOf="@+id/tv_register_already_have_account"
                 app:layout_constraintTop_toTopOf="@+id/tv_register_already_have_account" />
