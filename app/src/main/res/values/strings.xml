@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Hungry</string>
     <string name="username_title">姓名</string>
-    <string name="username_hint">王小明</string>
+    <string name="username_hint">王小明 (僅能包含英文、數字、底線和中文)</string>
     <string name="email_title">Email</string>
     <string name="email_hint">fcu123@fcu.edu.tw</string>
     <string name="password_title">密碼</string>

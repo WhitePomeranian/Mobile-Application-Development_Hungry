@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 初始化資料庫
+        DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this, DatabaseHelper.DATABASE_NAME,
+                null, DatabaseHelper.DATABASE_VERSION);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
         tvLoginRegister = findViewById(R.id.tv_login_register);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
