@@ -2,6 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="login_and_register_input_background">#F0F4F8</color>
-    <color name="login_and_register_input_border">#DADADA</color>
+    <color name="login_register_title">#66727F</color>
+    <color name="login_register_input_background">#F0F4F8</color>
+    <color name="login_register_input_border">#DADADA</color>
+    <color name="login_register_btn_background">#4BB2F9</color>
+    <color name="login_register_btn_border">#4BB2F9</color>
 </resources>
