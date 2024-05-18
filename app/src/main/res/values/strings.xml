@@ -13,4 +13,7 @@
     <string name="register_btn">註冊</string>
     <string name="already_have_account">已經有帳號了嗎?</string>
     <string name="login_title">登入</string>
+    <string name="login_btn">登入</string>
+    <string name="another_way_login">或使用其它方式登入</string>
+    <string name="not_have_account">還沒有帳號嗎?</string>
 </resources>

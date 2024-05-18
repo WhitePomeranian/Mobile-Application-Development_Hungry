@@ -3,6 +3,7 @@ package com.fcu.hungry;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class RegisterActivity extends AppCompatActivity {
 
