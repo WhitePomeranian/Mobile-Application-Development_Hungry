@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tvLoginRegister;
+    private TextView tvLoginRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvLoginRegister = findViewById(R.id.tv_login_register);
-
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
@@ -44,5 +44,6 @@ public class MainActivity extends AppCompatActivity {
         spannableString.setSpan(clickableSpan, 0, spannableString.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE); // 設置監聽器並包含頭尾兩字
         tvLoginRegister.setText(spannableString);
         tvLoginRegister.setMovementMethod(LinkMovementMethod.getInstance()); // 使TextView中的超連結能夠被點擊
+
     }
 }

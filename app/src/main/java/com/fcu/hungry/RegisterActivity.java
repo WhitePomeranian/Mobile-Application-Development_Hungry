@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -16,12 +17,17 @@ import android.widget.TextView;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextView tvRegisterLogin;
+    private TextView tvRegisterLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        // 初始化資料庫
+        DatabaseHelper databaseHelper = new DatabaseHelper(RegisterActivity.this, DatabaseHelper.DATABASE_NAME,
+                null, DatabaseHelper.DATABASE_VERSION);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
         tvRegisterLogin = findViewById(R.id.tv_register_login);
 
