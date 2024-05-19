@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // 在數據庫版本更新時處理相應的邏輯 (例如: 添加新的資料表、修改現有的資料表結構或者刪除資料表)
+        // 在資料庫版本更新時處理相應的邏輯 (例如: 添加新的資料表、修改現有的資料表結構或者刪除資料表)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GUEST);
         onCreate(db);
     }
