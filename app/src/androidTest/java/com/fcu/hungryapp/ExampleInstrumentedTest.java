@@ -1,4 +1,4 @@
-package com.fcu.hungry;
+package com.fcu.hungryapp;
 
 import android.content.Context;
 

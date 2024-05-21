@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "956895068990",
+    "firebase_url": "https://hungryapp-d2994-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hungryapp-d2994",
+    "storage_bucket": "hungryapp-d2994.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956895068990:android:597a257c0b11d6b495226f",
+        "android_client_info": {
+          "package_name": "com.fcu.hungryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956895068990-p5cg6rg5c0be53dupk789ml4l57fufcu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fcu.hungryapp",
+            "certificate_hash": "0eb273f9bc49eba8b2de01968448fc7ba2b3e41d"
+          }
+        },
+        {
+          "client_id": "956895068990-u7otlreutbkp2e0h154ikoi2pcmlv6pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn5gniuZjHMG-t2qTjUAqA-MaVrqpeB48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956895068990-u7otlreutbkp2e0h154ikoi2pcmlv6pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

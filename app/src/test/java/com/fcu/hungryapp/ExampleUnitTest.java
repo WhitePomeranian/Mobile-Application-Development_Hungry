@@ -1,4 +1,4 @@
-package com.fcu.hungry;
+package com.fcu.hungryapp;
 
 import org.junit.Test;
 
