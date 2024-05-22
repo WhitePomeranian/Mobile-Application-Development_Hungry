@@ -2,7 +2,13 @@ package com.fcu.hungryapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -59,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
         switch1 = findViewById(R.id.switch1);
         tv_register_name = findViewById(R.id.tv_register_name);
+        tvRegisterLogin = findViewById(R.id.tv_register_login);
 
         //firebase authentication
         firebaseAuth = FirebaseAuth.getInstance();
@@ -138,7 +145,30 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                finish();
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(true); // 設置底線
+                ds.setColor(Color.parseColor("#4BB2F9"));
+            }
+        };
+        SpannableString spannableString = new SpannableString(tvRegisterLogin.getText().toString());
+        spannableString.setSpan(clickableSpan, 0, spannableString.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE); // 設置監聽器並包含頭尾兩字
+        tvRegisterLogin.setText(spannableString);
+        tvRegisterLogin.setMovementMethod(LinkMovementMethod.getInstance()); // 使TextView中的超連結能夠被點擊
+
     }
+
+
+
+
 
     private void write_data(String email, String password, String name, String phone) {
 
