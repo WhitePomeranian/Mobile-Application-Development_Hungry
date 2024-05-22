@@ -1,10 +1,13 @@
 package com.fcu.hungryapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +38,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_register_confirm_password;
     private EditText etRegisterPhone;
     private Button btnRegister;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private Switch switch1;
+    private TextView tv_register_name;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
+    private Boolean isShop = false;
 
 
     @Override
@@ -50,6 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
         et_register_confirm_password = findViewById(R.id.et_register_confirm_password);
         etRegisterPhone = findViewById(R.id.et_register_phone);
         btnRegister = findViewById(R.id.btn_register);
+        switch1 = findViewById(R.id.switch1);
+        tv_register_name = findViewById(R.id.tv_register_name);
 
         //firebase authentication
         firebaseAuth = FirebaseAuth.getInstance();
@@ -114,6 +123,21 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switch1.setText("商家");
+                    tv_register_name.setText("商店名稱");
+                    isShop = true;
+                } else{
+                    switch1.setText("一般用戶");
+                    tv_register_name.setText("姓名");
+                    isShop = false;
+                }
+            }
+        });
     }
 
     private void write_data(String email, String password, String name, String phone) {
@@ -130,13 +154,19 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("name", name);
         map.put("phone", phone);
         map.put("email", email);
+        map.put("isShop", isShop);
 
         reference.child(user.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(RegisterActivity.this, "writing success", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(RegisterActivity.this, FrontPage.class));
+                    if(isShop){
+                        startActivity(new Intent(RegisterActivity.this, FrontPage.class));
+                    } else{
+                        startActivity(new Intent(RegisterActivity.this, FrontPage.class));
+                    }
+
                 } else{
                     Toast.makeText(RegisterActivity.this, "Error!!", Toast.LENGTH_LONG).show();
                 }

@@ -52,7 +52,7 @@
                 android:textColor="@color/login_register_title"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_register_app_logo" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_register_app_name" />
 
             <EditText
                 android:id="@+id/et_register_name"
@@ -246,6 +246,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_register_already_have_account"
                 app:layout_constraintStart_toEndOf="@+id/tv_register_already_have_account"
                 app:layout_constraintTop_toTopOf="@+id/tv_register_already_have_account" />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一般用戶"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/login_register_title"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/et_register_name"
+                app:layout_constraintTop_toBottomOf="@+id/iv_register_app_name"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
