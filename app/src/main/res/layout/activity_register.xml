@@ -248,10 +248,10 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_register_already_have_account" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/sw_register_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="一般用戶"
+                android:text="@string/general_users"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/login_register_title"
                 android:textStyle="bold"

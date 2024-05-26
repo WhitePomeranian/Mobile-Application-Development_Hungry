@@ -1,11 +1,9 @@
 package com.fcu.hungryapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -16,26 +14,13 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fcu.hungryapp.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Firebase authentication
     public FirebaseAuth auth;
-    private EditText et_login_password;
-    private EditText et_login_email;
-    private Button btn_login;
+    private EditText etLoginPassword;
+    private EditText etLoginEmail;
+    private Button btnLogin;
 
 
     @Override
@@ -53,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        et_login_email = findViewById(R.id.et_login_email);
-        et_login_password = findViewById(R.id.et_login_password);
-        btn_login = findViewById(R.id.btn_login);
+        etLoginEmail = findViewById(R.id.et_login_email);
+        etLoginPassword = findViewById(R.id.et_login_password);
+        btnLogin = findViewById(R.id.btn_login);
 
         tvLoginRegister = findViewById(R.id.tv_login_register);
 
@@ -66,18 +51,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, FrontPage.class));
         }
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Email = et_login_email.getText().toString();
-                String Password = et_login_password.getText().toString();
+                String Email = etLoginEmail.getText().toString();
+                String Password = etLoginPassword.getText().toString();
 
                 if(Email.isEmpty()){
-                    et_login_email.setError("Email require");
+                    etLoginEmail.setError("Email require");
                     return;
                 }
                 if(Password.isEmpty()){
-                    et_login_password.setError("Password require");
+                    etLoginPassword.setError("Password require");
                     return;
                 }
 
@@ -90,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } else{
                             Toast.makeText(MainActivity.this, "User not found or Password incorrect", Toast.LENGTH_LONG).show();
-                            et_login_password.setText("");
+                            etLoginPassword.setText("");
                         }
                     }
                 });

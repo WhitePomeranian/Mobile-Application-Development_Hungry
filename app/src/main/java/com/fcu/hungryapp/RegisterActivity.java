@@ -20,10 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
-import com.fasterxml.jackson.databind.jsontype.impl.MinimalClassNameIdResolver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.HashMap;
 
@@ -41,12 +36,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etRegisterName;
     private EditText etRegisterEmail;
     private EditText etRegisterPassword;
-    private EditText et_register_confirm_password;
+    private EditText etRegisterConfirmPassword;
     private EditText etRegisterPhone;
     private Button btnRegister;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch switch1;
-    private TextView tv_register_name;
+    private Switch swUsers;
+    private TextView tvRegisterName;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
     private Boolean isShop = false;
@@ -60,11 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
         etRegisterName = findViewById(R.id.et_register_name);
         etRegisterEmail = findViewById(R.id.et_register_email);
         etRegisterPassword = findViewById(R.id.et_register_password);
-        et_register_confirm_password = findViewById(R.id.et_register_confirm_password);
+        etRegisterConfirmPassword = findViewById(R.id.et_register_confirm_password);
         etRegisterPhone = findViewById(R.id.et_register_phone);
         btnRegister = findViewById(R.id.btn_register);
-        switch1 = findViewById(R.id.switch1);
-        tv_register_name = findViewById(R.id.tv_register_name);
+        swUsers = findViewById(R.id.sw_register_user);
+        tvRegisterName = findViewById(R.id.tv_register_name);
         tvRegisterLogin = findViewById(R.id.tv_register_login);
 
         //firebase authentication
@@ -74,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String Email = etRegisterEmail.getText().toString();
                 String Password = etRegisterPassword.getText().toString();
-                String Confirm_Password = et_register_confirm_password.getText().toString();
+                String Confirm_Password = etRegisterConfirmPassword.getText().toString();
                 String Name = etRegisterName.getText().toString();
                 String Phone = etRegisterPhone.getText().toString();
 
@@ -99,11 +94,11 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 if(Confirm_Password.isEmpty()){
-                    et_register_confirm_password.setError("Confirm Password require");
+                    etRegisterConfirmPassword.setError("Confirm Password require");
                     return;
                 }
                 if(!Confirm_Password.equals(Password)){
-                    et_register_confirm_password.setError("Confirm password not equal password");
+                    etRegisterConfirmPassword.setError("Confirm password not equal password");
                     return;
                 }
                 if(Phone.isEmpty()){
@@ -131,16 +126,18 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swUsers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    switch1.setText("商家");
-                    tv_register_name.setText("商店名稱");
+                    swUsers.setText("商家");
+                    tvRegisterName.setText("商店名稱");
+                    etRegisterName.setHint("考魚 (僅能包含英文、數字、底線和中文)");
                     isShop = true;
                 } else{
-                    switch1.setText("一般用戶");
-                    tv_register_name.setText("姓名");
+                    swUsers.setText("一般用戶");
+                    tvRegisterName.setText("姓名");
+                    etRegisterName.setHint("王小明 (僅能包含英文、數字、底線和中文)");
                     isShop = false;
                 }
             }
