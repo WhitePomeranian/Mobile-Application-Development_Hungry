@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/white"
+    tools:context=".MerchantActivity">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_position_name"
