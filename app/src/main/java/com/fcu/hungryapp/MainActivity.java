@@ -1,8 +1,11 @@
 package com.fcu.hungryapp;
 
+import static com.fcu.hungryapp.FrontPage.extractValue;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +25,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Firebase authentication
     public FirebaseAuth auth;
+    private FirebaseUser user;
+    private FirebaseDatabase database;
     private EditText etLoginPassword;
     private EditText etLoginEmail;
     private Button btnLogin;
@@ -46,9 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         //firebase authentication login
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
 
-        if(auth.getCurrentUser() != null){
-            startActivity(new Intent(MainActivity.this, FrontPage.class));
+        if(user != null){
+            CheckUserType();
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +83,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "Login...", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this, FrontPage.class));
+                            user = auth.getCurrentUser();
+                            if(user != null){
+                              CheckUserType();
+                            }
 
                         } else{
                             Toast.makeText(MainActivity.this, "User not found or Password incorrect", Toast.LENGTH_LONG).show();
@@ -101,5 +116,29 @@ public class MainActivity extends AppCompatActivity {
         tvLoginRegister.setText(spannableString);
         tvLoginRegister.setMovementMethod(LinkMovementMethod.getInstance()); // 使TextView中的超連結能夠被點擊
 
+    }
+
+    private void CheckUserType() {
+        DatabaseReference reference = database.getReference("users");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    String user_info = String.valueOf(task.getResult().getValue());
+                    String isShop = extractValue(user_info, "isShop");
+
+                    if(isShop.equals("true")){
+                        startActivity(new Intent(MainActivity.this, MerchantActivity.class));
+                        finish();
+                    } else{
+                        startActivity(new Intent(MainActivity.this, SearchShop.class));
+                        finish();
+                    }
+                } else{
+                    Toast.makeText(MainActivity.this, "Get user info Error!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

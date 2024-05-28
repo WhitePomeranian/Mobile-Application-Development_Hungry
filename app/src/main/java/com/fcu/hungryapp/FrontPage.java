@@ -86,7 +86,7 @@ public class FrontPage extends AppCompatActivity {
         finish();
     }
 
-    private static String extractValue(String input, String key) {
+    static String extractValue(String input, String key) {
         String keyWithEquals = key + "=";
         int startIndex = input.indexOf(keyWithEquals);
         if (startIndex == -1) {

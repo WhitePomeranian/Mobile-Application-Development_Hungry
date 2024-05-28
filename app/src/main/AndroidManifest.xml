@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Hungry"
         tools:targetApi="31">
         <activity
+            android:name=".CreateShopActivity"
+            android:exported="false" />
+        <activity
             android:name=".SeatActivity"
             android:exported="false" />
         <activity
@@ -29,6 +32,9 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchShop"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

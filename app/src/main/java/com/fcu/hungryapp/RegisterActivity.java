@@ -115,9 +115,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "writing data", Toast.LENGTH_SHORT).show();
                                 write_data(Email, Password, Name, Phone);
                             }
-
-//                            startActivity(new Intent(RegisterActivity.this, FrontPage.class));
-
                         } else{
                             Toast.makeText(RegisterActivity.this, "Error!", Toast.LENGTH_LONG).show();
                         }
@@ -189,9 +186,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(RegisterActivity.this, "writing success", Toast.LENGTH_LONG).show();
                     if(isShop){
-                        startActivity(new Intent(RegisterActivity.this, FrontPage.class));
+                        startActivity(new Intent(RegisterActivity.this, CreateShopActivity.class));
                     } else{
-                        startActivity(new Intent(RegisterActivity.this, FrontPage.class));
+                        startActivity(new Intent(RegisterActivity.this, SearchShop.class));
                     }
 
                 } else{
