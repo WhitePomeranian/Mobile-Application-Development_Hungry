@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
                     String user_info = String.valueOf(task.getResult().getValue());
+                    Log.e("user info check", user_info);
                     String isShop = extractValue(user_info, "isShop");
 
                     if(isShop.equals("true")){

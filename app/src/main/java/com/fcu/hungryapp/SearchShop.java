@@ -3,9 +3,12 @@ package com.fcu.hungryapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchShop extends AppCompatActivity {
+    public static final String SHOP_ID_VALUE = "shopgetvaluecheck";
     private Uri imgURI;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ShopInfo");
     final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -66,5 +70,21 @@ public class SearchShop extends AppCompatActivity {
 
         ShopInfoAdapter adapter = new ShopInfoAdapter(SearchShop.this, shops);
         lv_shop.setAdapter(adapter);
+
+        lv_shop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShopInfo select = shops.get(position);
+                String shop_id = select.getShop_id();
+
+                Intent intent = new Intent(SearchShop.this, SeatActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(SHOP_ID_VALUE, shop_id);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

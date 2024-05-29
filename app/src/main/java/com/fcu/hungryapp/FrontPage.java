@@ -75,9 +75,6 @@ public class FrontPage extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     public void logout(){

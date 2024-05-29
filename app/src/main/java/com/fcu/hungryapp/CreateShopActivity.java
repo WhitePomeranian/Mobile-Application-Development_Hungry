@@ -146,6 +146,7 @@ public class CreateShopActivity extends AppCompatActivity {
                         map.put("start_time", start_time);
                         map.put("end_time", end_time);
                         map.put("name", name);
+                        map.put("shop_id",user.getUid());
 
                         databaseReference.child(user.getUid()).setValue(map);
                         Toast.makeText(CreateShopActivity.this, "Uploaded", Toast.LENGTH_LONG).show();
