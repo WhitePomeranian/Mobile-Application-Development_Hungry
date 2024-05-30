@@ -4,8 +4,10 @@ import static com.fcu.hungryapp.FrontPage.extractValue;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -22,7 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class BookingInfoActivity extends AppCompatActivity {
+public class SeatActivity extends AppCompatActivity {
     private TextView tv_choose;
     private TextView tv_getname;
     private TextView tv_getmail;
@@ -36,7 +38,7 @@ public class BookingInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_booking_info);
+        setContentView(R.layout.activity_seat);
 
         tv_choose = findViewById(R.id.tv_choose);
         tv_getname = findViewById(R.id.tv_getname);
