@@ -77,7 +77,7 @@ public class SearchShop extends AppCompatActivity {
                 ShopInfo select = shops.get(position);
                 String shop_id = select.getShop_id();
 
-                Intent intent = new Intent(SearchShop.this, SeatActivity.class);
+                Intent intent = new Intent(SearchShop.this, BookingInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(SHOP_ID_VALUE, shop_id);
                 intent.putExtras(bundle);

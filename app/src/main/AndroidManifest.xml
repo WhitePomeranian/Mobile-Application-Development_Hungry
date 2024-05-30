@@ -19,13 +19,13 @@
             android:name=".CreateShopActivity"
             android:exported="false" />
         <activity
-            android:name=".SeatActivity"
+            android:name=".BookingInfoActivity"
             android:exported="false" />
         <activity
             android:name=".MerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".OrderDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".FrontPage"
