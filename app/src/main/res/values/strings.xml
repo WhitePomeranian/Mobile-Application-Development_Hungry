@@ -3,7 +3,7 @@
     <string name="username_title">姓名</string>
     <string name="username_hint">王小明 (僅能包含英文、數字、底線和中文)</string>
     <string name="email_title">Email</string>
-    <string name="email_hint">fcu123@fcu.edu.tw</string>
+    <string name="email_hint">fcu123@gmail.com</string>
     <string name="password_title">密碼</string>
     <string name="password_hint">16字元↑ (需含大小寫字母、數字和特殊符號)</string>
     <string name="confirm_password_title">確認密碼</string>
