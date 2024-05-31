@@ -17,6 +17,8 @@
     <string name="another_way_login">或使用其它方式登入</string>
     <string name="not_have_account">還沒有帳號嗎?</string>
     <string name="general_users">一般用戶</string>
+    <string name="drawer_open">open drawer</string>
+    <string name="drawer_close">close drawer</string>
 
     <string-array name="time_array">
         <item>00:00</item>

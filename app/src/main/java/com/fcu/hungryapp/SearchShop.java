@@ -1,17 +1,23 @@
 package com.fcu.hungryapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,14 +40,19 @@ public class SearchShop extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseDatabase database;
 
-    private ListView lv_shop;
+    private ListView lvShop;
+
+    // drawer
+    private DrawerLayout drawerLayout;
+    NavigationView nvDrawer;
+    private Toolbar tbSearchShop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop);
 
-        lv_shop = findViewById(R.id.lv_shop);
+        lvShop = findViewById(R.id.lv_shop);
 
         List<ShopInfo> shops = new ArrayList<>();
 
@@ -69,9 +80,9 @@ public class SearchShop extends AppCompatActivity {
         });
 
         ShopInfoAdapter adapter = new ShopInfoAdapter(SearchShop.this, shops);
-        lv_shop.setAdapter(adapter);
+        lvShop.setAdapter(adapter);
 
-        lv_shop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShopInfo select = shops.get(position);
@@ -86,5 +97,32 @@ public class SearchShop extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
+        // drawer
+        drawerLayout = findViewById(R.id.drawer_layout);
+        tbSearchShop = findViewById(R.id.tb_search_shop);
+        nvDrawer = findViewById(R.id.nv_drawer);
+        setSupportActionBar(tbSearchShop);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, tbSearchShop, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+    }
+
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
