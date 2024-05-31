@@ -104,6 +104,7 @@ public class SearchShop extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         tbSearchShop = findViewById(R.id.tb_search_shop);
         nvDrawer = findViewById(R.id.nv_drawer);
+        nvDrawer.setItemIconTintList(null);
         setSupportActionBar(tbSearchShop);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, tbSearchShop, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
