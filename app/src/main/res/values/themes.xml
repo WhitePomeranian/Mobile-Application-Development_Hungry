@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.Hungry" parent="Base.Theme.Hungry" />
+    <style name="drawer_text_style">
+        <item name="android:textSize">30sp</item>
+    </style>
 </resources>
