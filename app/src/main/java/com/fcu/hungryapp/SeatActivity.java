@@ -3,9 +3,18 @@ package com.fcu.hungryapp;
 import static com.fcu.hungryapp.FrontPage.extractValue;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,18 +30,35 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class SeatActivity extends AppCompatActivity {
+    private Spinner spin_all_timing;
     private TextView tv_choose;
     private TextView tv_getname;
     private TextView tv_getmail;
     private TextView tv_getphonenumber;
+    private EditText et_num;
+    private EditText et_note;
+    private Button bt_submit;
     private String shop_id;
+    private String order_time;
+    private String userinfo;
+    private String phone;
+    private String name;
+    private String email;
+    private Boolean check_spinner = false;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
+
+    public int order_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +66,25 @@ public class SeatActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_seat);
 
+        spin_all_timing = findViewById(R.id.spin_all_timing);
         tv_choose = findViewById(R.id.tv_choose);
         tv_getname = findViewById(R.id.tv_getname);
         tv_getmail = findViewById(R.id.tv_getmail);
         tv_getphonenumber = findViewById(R.id.tv_getPhoneNumber);
+        et_num = findViewById(R.id.et_num);
+        et_note = findViewById(R.id.et_note);
+        bt_submit = findViewById(R.id.bt_submit);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(SeatActivity.this, R.array.seat, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin_all_timing.setAdapter(adapter);
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
@@ -62,6 +97,7 @@ public class SeatActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("ShopInfo");
         DatabaseReference userReferencce = database.getReference("users");
+
 
         reference.child(shop_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @SuppressLint("SetTextI18n")
@@ -83,13 +119,117 @@ public class SeatActivity extends AppCompatActivity {
                 if(task != null){
                     String user_info = String.valueOf(task.getResult().getValue());
 
-                    String phone = extractValue(user_info, "phone");
-                    String name = extractValue(user_info, "name");
-                    String email = extractValue(user_info, "email");
+                    phone = extractValue(user_info, "phone");
+                    name = extractValue(user_info, "name");
+                    email = extractValue(user_info, "email");
 
                     tv_getphonenumber.setText(phone);
                     tv_getname.setText(name);
                     tv_getmail.setText(email);
+                }
+            }
+        });
+
+        spin_all_timing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    bt_submit.setVisibility(View.GONE);
+                    return;
+                }
+                order_time = parent.getItemAtPosition(position).toString();
+                check_spinner = true;
+
+                if(et_num.getText().toString().length() != 0){
+                    Log.e("edittext", String.valueOf(et_num.getText().toString().length()));
+                    bt_submit.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                bt_submit.setVisibility(View.GONE);
+            }
+        });
+
+        et_num.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(et_num.getText().toString().length() != 0 && check_spinner){
+                    bt_submit.setVisibility(View.VISIBLE);
+                } else{
+                    bt_submit.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String order_num;
+                String order_note = "";
+
+                order_num = et_num.getText().toString();
+                if(et_note.getText().toString() != ""){
+                    order_note = et_note.getText().toString();
+                }
+
+                uploadToFirebase(order_time, phone, name, email, order_num, order_note);
+
+            }
+        });
+    }
+
+    private void uploadToFirebase(String orderTime, String phone, String name, String email, String orderNum, String orderNote) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("order_time", orderTime);
+        map.put("phone", phone);
+        map.put("name", name);
+        map.put("email", email);
+        map.put("order_num", orderNum);
+        map.put("order_note", orderNote);
+
+        DatabaseReference checkReference = database.getReference("OrderInfo").child(shop_id);
+        DatabaseReference orderReference = database.getReference("OrderInfo");
+        order_count = 1;
+        checkReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot dataSnapshot = task.getResult();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String key = snapshot.getKey();
+                        Log.e("first key order", "Key:" + key + "order" + String.valueOf(order_count));
+                        if(String.valueOf(order_count).equals(key)){
+                            order_count++;
+                            Log.e("key order", "Key:" + key + "order" + String.valueOf(order_count));
+                        }
+                    }
+                    Log.e("orderReference...", String.valueOf(order_count));
+                    orderReference.child(shop_id).child(String.valueOf(order_count)).setValue(map);
+                    Toast.makeText(SeatActivity.this, "order success", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(SeatActivity.this, MerchantActivity.class);//finish order page(Thank for order)
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.d("FirebaseData", "No data found");
+                    orderReference.child(shop_id).child("1").setValue(map);
+                    Toast.makeText(SeatActivity.this, "order success", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(SeatActivity.this, MerchantActivity.class);//finish order page(Thank for order)
+                    startActivity(intent);
+                    finish();
                 }
             }
         });

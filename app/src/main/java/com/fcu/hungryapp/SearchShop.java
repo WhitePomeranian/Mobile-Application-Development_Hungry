@@ -68,6 +68,8 @@ public class SearchShop extends AppCompatActivity {
                             shops.add(info);
                         }
                     }
+                    ShopInfoAdapter adapter = new ShopInfoAdapter(SearchShop.this, shops);
+                    lvShop.setAdapter(adapter);
                 } else{
                     Toast.makeText(SearchShop.this, "No data found", Toast.LENGTH_LONG).show();
                 }
@@ -79,8 +81,6 @@ public class SearchShop extends AppCompatActivity {
             }
         });
 
-        ShopInfoAdapter adapter = new ShopInfoAdapter(SearchShop.this, shops);
-        lvShop.setAdapter(adapter);
 
         lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,6 +114,14 @@ public class SearchShop extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 drawerLayout.closeDrawer(GravityCompat.START);
+                int id = item.getItemId();
+
+                if(id == R.id.nav_home){
+                    startActivity(new Intent(SearchShop.this, FrontPage.class));
+                } else if (id == R.id.nav_gallery) {
+
+                }
+
                 return true;
             }
         });
