@@ -35,7 +35,7 @@ public class MerchantActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int id = v.getId();
                 if(id == R.id.btn_reservation_list) {
-                    Intent intent = new Intent(MerchantActivity.this, SeatActivity.class);
+                    Intent intent = new Intent(MerchantActivity.this, OrderManage.class);
                     startActivity(intent);
                 } else if(id == R.id.btn_order_details) {
                     Intent intent = new Intent(MerchantActivity.this, OrderActivity.class);
