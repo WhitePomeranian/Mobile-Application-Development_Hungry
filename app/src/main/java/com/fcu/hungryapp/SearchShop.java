@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.service.controls.actions.FloatAction;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchShop extends AppCompatActivity {
+
     public static final String SHOP_ID_VALUE = "shopgetvaluecheck";
     private Uri imgURI;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ShopInfo");
@@ -100,7 +102,6 @@ public class SearchShop extends AppCompatActivity {
                 intent.putExtras(bundle);
 
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -112,23 +113,24 @@ public class SearchShop extends AppCompatActivity {
         nvDrawer = findViewById(R.id.nv_drawer);
         nvDrawer.setItemIconTintList(null);
         setSupportActionBar(tbSearchShop);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, tbSearchShop, R.string.drawer_open, R.string.drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(SearchShop.this, drawerLayout, tbSearchShop, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-                int id = item.getItemId();
-
-                if(id == R.id.nav_home){
-                    startActivity(new Intent(SearchShop.this, FrontPage.class));
-                } else if (id == R.id.nav_gallery) {
-
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()) {
+                    case 1000069:
+                        startActivity(new Intent(SearchShop.this, FrontPage.class));
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
+                    case 1000022:
+                        startActivity(new Intent(SearchShop.this, QRcode_scanner.class));
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
                 }
-
-                return true;
+                return false;
             }
         });
 
@@ -136,6 +138,8 @@ public class SearchShop extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //start activity to scan QRCode.
+                Intent intent = new Intent(SearchShop.this, QRcode_scanner.class);
+                startActivity(intent);
             }
         });
     }

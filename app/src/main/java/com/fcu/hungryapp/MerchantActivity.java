@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.DataOutputStream;
+
 public class MerchantActivity extends AppCompatActivity {
 
     private Button btnReservationList;
     private Button btnOrderDetails;
+    private Button btncreateqrcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class MerchantActivity extends AppCompatActivity {
 
         btnReservationList = findViewById(R.id.btn_reservation_list);
         btnOrderDetails = findViewById(R.id.btn_order_details);
+        btncreateqrcode = findViewById(R.id.btn_create_qrcode);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -38,7 +43,11 @@ public class MerchantActivity extends AppCompatActivity {
                     Intent intent = new Intent(MerchantActivity.this, OrderManage.class);
                     startActivity(intent);
                 } else if(id == R.id.btn_order_details) {
-                    Intent intent = new Intent(MerchantActivity.this, OrderActivity.class);
+                    Toast.makeText(MerchantActivity.this, "no function yet", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(MerchantActivity.this, OrderActivity.class);
+//                    startActivity(intent);
+                } else if (id == R.id.btn_create_qrcode) {
+                    Intent intent = new Intent(MerchantActivity.this, CreateQRcode.class);
                     startActivity(intent);
                 }
             }
@@ -46,5 +55,6 @@ public class MerchantActivity extends AppCompatActivity {
 
         btnReservationList.setOnClickListener(listener);
         btnOrderDetails.setOnClickListener(listener);
+        btncreateqrcode.setOnClickListener(listener);
     }
 }
