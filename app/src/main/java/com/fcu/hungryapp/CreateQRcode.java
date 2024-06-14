@@ -88,6 +88,19 @@ public class CreateQRcode extends AppCompatActivity {
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }
+                } else{
+                    tv_table.setText("無桌號");
+
+                    BarcodeEncoder encoder = new BarcodeEncoder();
+                    String code = user.getUid();
+                    try {
+                        Toast.makeText(CreateQRcode.this, user.getUid(), Toast.LENGTH_LONG).show();
+                        bit = encoder.encodeBitmap(code, BarcodeFormat.QR_CODE,
+                                1300, 1300);
+                        img_qrcode .setImageBitmap(bit);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }

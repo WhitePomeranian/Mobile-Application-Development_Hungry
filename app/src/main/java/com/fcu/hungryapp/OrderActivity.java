@@ -20,7 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class OrderActivity extends AppCompatActivity {
+    private String qrcode_info;
     private String shop_id;
+    private String table_num;
     private TextView tv_shoptitle;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ShopInfo");
 
@@ -40,8 +42,19 @@ public class OrderActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            shop_id = bundle.getString(QRcode_scanner.QRCODE_ID_VALUE);
-            Log.e("shop id check", shop_id);
+            qrcode_info = bundle.getString(QRcode_scanner.QRCODE_ID_VALUE);
+            int index = qrcode_info.indexOf("@@@");
+            if (index == -1) {
+                shop_id = qrcode_info;
+                table_num = "無桌號";
+            } else {
+                shop_id = qrcode_info.substring(0, index);
+                table_num = qrcode_info.substring(index+3);
+                Log.d("shop", shop_id);
+                Log.d("table", table_num);
+            }
+
+
         }
 
         databaseReference.child(shop_id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -51,7 +64,7 @@ public class OrderActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     ShopInfo info = snapshot.getValue(ShopInfo.class);
 
-                    tv_shoptitle.setText("(" + info.getName() + ")" + "取餐時間:");
+                    tv_shoptitle.setText(table_num + "(" + info.getName() + ")" + "取餐時間:");
                 } else{
                     Toast.makeText(OrderActivity.this, "No data found", Toast.LENGTH_LONG).show();
                 }
