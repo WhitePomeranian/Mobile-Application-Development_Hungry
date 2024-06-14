@@ -1,11 +1,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_personal_info"
         android:icon="@drawable/user"
         android:title="個人資料" />
     <item
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_orders"
         android:icon="@drawable/order"
         android:title="你的訂單" />
 </menu>

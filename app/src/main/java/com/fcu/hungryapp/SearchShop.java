@@ -34,7 +34,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchShop extends AppCompatActivity {
+public class SearchShop extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     public static final String SHOP_ID_VALUE = "shopgetvaluecheck";
     private Uri imgURI;
@@ -58,6 +60,8 @@ public class SearchShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop);
+
+
 
         lvShop = findViewById(R.id.lv_shop);
         fab_camera = findViewById(R.id.fab_camera_bt);
@@ -112,27 +116,30 @@ public class SearchShop extends AppCompatActivity {
         tbSearchShop = findViewById(R.id.tb_search_shop);
         nvDrawer = findViewById(R.id.nv_drawer);
         nvDrawer.setItemIconTintList(null);
+        nvDrawer.bringToFront();
         setSupportActionBar(tbSearchShop);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(SearchShop.this, drawerLayout, tbSearchShop, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()) {
-                    case 1000069:
-                        startActivity(new Intent(SearchShop.this, FrontPage.class));
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
-                    case 1000022:
-                        startActivity(new Intent(SearchShop.this, QRcode_scanner.class));
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
-                }
-                return false;
-            }
-        });
+        nvDrawer.setNavigationItemSelectedListener(this);
+
+//        nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case 1000069:
+//                        startActivity(new Intent(SearchShop.this, FrontPage.class));
+//                        drawerLayout.closeDrawer(GravityCompat.START);
+//                        return true;
+//                    case 1000022:
+//                        startActivity(new Intent(SearchShop.this, QRcode_scanner.class));
+//                        drawerLayout.closeDrawer(GravityCompat.START);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
 
         fab_camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,5 +157,20 @@ public class SearchShop extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.nav_personal_info) {
+            Intent intent = new Intent(SearchShop.this, PersonalInfoActivity.class);
+            startActivity(intent);
+            return true;
+        } else if(id == R.id.nav_orders) {
+            Intent intent = new Intent(SearchShop.this, YourOrdersActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return false;
     }
 }
