@@ -3,14 +3,18 @@ package com.fcu.hungryapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.TotpSecret;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -33,9 +38,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Objects;
 
 public class CreateQRcode extends AppCompatActivity {
-    private static final int REQUEST_WRITE_PERMISSION = 786;
+    private static final int REQUEST_WRITE_PERMISSION = 1;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private ImageView img_qrcode;
@@ -60,8 +67,6 @@ public class CreateQRcode extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        ActivityCompat.requestPermissions(CreateQRcode.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-        ActivityCompat.requestPermissions(CreateQRcode.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 
 
 
@@ -92,40 +97,61 @@ public class CreateQRcode extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(bit != null){
-                    saveToGallery();
+                    if(ContextCompat.checkSelfPermission(CreateQRcode.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        saveImage();
+                    } else{
+                        ActivityCompat.requestPermissions(CreateQRcode.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_WRITE_PERMISSION);
+                        ActivityCompat.requestPermissions(CreateQRcode.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_WRITE_PERMISSION);
+
+                    }
                 }
             }
         });
     }
 
-    private void saveToGallery(){
-        Bitmap bitmap = bit;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        FileOutputStream outputStream = null;
-        File file = Environment.getExternalStorageDirectory();
-        File dir = new File(file.getAbsolutePath() + "/MyPics");
-        dir.mkdirs();
+        if(requestCode == REQUEST_WRITE_PERMISSION){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                saveImage();
+            } else{
 
-        Log.e("file path", String.valueOf(dir));
+            }
+        }
 
-        String filename = String.format("%d.jpg",System.currentTimeMillis());
-        File outFile = new File(dir,filename);
-        try{
-            outputStream = new FileOutputStream(outFile);
-        }catch (Exception e){
-            e.printStackTrace();
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void saveImage(){
+
+        Uri image;
+        ContentResolver contentResolver = getContentResolver();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            image = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+        } else{
+            image = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         }
-        Log.e("bitmap", bit.toString());
-        bitmap.compress(Bitmap.CompressFormat.JPEG,10,outputStream);
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, System.currentTimeMillis() + ".jpg");
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "images/*");
+
+        Uri uri = contentResolver.insert(image, contentValues);
+
         try{
-            outputStream.flush();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        try{
-            outputStream.close();
-        }
-        catch (Exception e){
+            Bitmap bitmap = bit;
+
+            OutputStream outputStream = contentResolver.openOutputStream(Objects.requireNonNull(uri));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+            Objects.requireNonNull(outputStream);
+
+            Toast.makeText(CreateQRcode.this, "Save success", Toast.LENGTH_LONG).show();
+        } catch (Exception e){
+            Toast.makeText(CreateQRcode.this, "Save does not success", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
