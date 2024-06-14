@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String message = getIntent().getStringExtra("message");
+        if (message != null) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+
         etLoginEmail = findViewById(R.id.et_login_email);
         etLoginPassword = findViewById(R.id.et_login_password);
         btnLogin = findViewById(R.id.btn_login);

@@ -61,6 +61,11 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop);
 
+        String message = getIntent().getStringExtra("message");
+        if (message != null) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+
 
 
         lvShop = findViewById(R.id.lv_shop);
@@ -124,23 +129,6 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
 
         nvDrawer.setNavigationItemSelectedListener(this);
 
-//        nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case 1000069:
-//                        startActivity(new Intent(SearchShop.this, FrontPage.class));
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                        return true;
-//                    case 1000022:
-//                        startActivity(new Intent(SearchShop.this, QRcode_scanner.class));
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
-
         fab_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,11 +150,11 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.nav_personal_info) {
-            Intent intent = new Intent(SearchShop.this, PersonalInfoActivity.class);
+            Intent intent = new Intent(SearchShop.this, FrontPage.class);
             startActivity(intent);
             return true;
         } else if(id == R.id.nav_orders) {
-            Intent intent = new Intent(SearchShop.this, YourOrdersActivity.class);
+            Intent intent = new Intent(SearchShop.this, QRcode_scanner.class);
             startActivity(intent);
             return true;
         }
