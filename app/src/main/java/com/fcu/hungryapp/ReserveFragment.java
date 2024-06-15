@@ -23,6 +23,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 public class ReserveFragment extends Fragment {
 
     private FirebaseAuth auth;
@@ -36,7 +42,9 @@ public class ReserveFragment extends Fragment {
     private TextView tvShopPhone;
 
     private Spinner spAdult;
-
+    private Spinner spChild;
+    private Spinner spDineDate;
+    private Spinner spChair;
 
     public ReserveFragment() {
 
@@ -50,6 +58,9 @@ public class ReserveFragment extends Fragment {
         tvShopName = rootView.findViewById(R.id.tv_reverse_shop_name);
         tvShopPhone = rootView.findViewById(R.id.tv_reverse_shop_phone);
         spAdult = rootView.findViewById(R.id.sp_adult);
+        spChild = rootView.findViewById(R.id.sp_child);
+        spDineDate = rootView.findViewById(R.id.sp_dine_date);
+        spChair = rootView.findViewById(R.id.sp_chair);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -82,7 +93,35 @@ public class ReserveFragment extends Fragment {
         adultAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spAdult.setAdapter(adultAdapter);
-        spAdult.setBackgroundColor(Color.parseColor("#D3D3D3"));
+
+        String[] spinnerChildItems = {"0位小孩", "1位小孩", "2位小孩", "3位小孩", "4位小孩", "5位小孩"};
+
+        ArrayAdapter<String> childAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, spinnerChildItems);
+
+        childAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spChild.setAdapter(childAdapter);
+
+        List<String> dateList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        for (int i = 0; i < 31; i++) {
+            dateList.add(sdf.format(calendar.getTime()));
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, dateList);
+        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spDineDate.setAdapter(dateAdapter);
+
+        String[] spinnerChairItems = {"0張", "1張", "2張", "3張", "4張", "5張"};
+
+        ArrayAdapter<String> chairAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, spinnerChairItems);
+        chairAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spChair.setAdapter(chairAdapter);
 
         return rootView;
     }
