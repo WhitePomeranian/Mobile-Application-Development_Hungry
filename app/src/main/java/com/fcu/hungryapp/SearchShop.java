@@ -55,6 +55,7 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
 
     //floating action button
     private FloatingActionButton fab_camera;
+    private String shop_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
                         ShopInfo info = dataSnapshot.getValue(ShopInfo.class);
 
                         if(info != null){
-                            Log.d("check info", info.getImage().toString());
+                            Log.d("check info id", info.getShop_id());
                             shops.add(info);
                         }
                     }
@@ -103,11 +104,14 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShopInfo select = shops.get(position);
+
                 String shop_id = select.getShop_id();
 
                 Intent intent = new Intent(SearchShop.this, SeatActivity.class);
                 intent.putExtra(SHOP_ID_VALUE, shop_id);
+
                 startActivity(intent);
+
             }
         });
 
@@ -158,4 +162,6 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
+
+
 }
