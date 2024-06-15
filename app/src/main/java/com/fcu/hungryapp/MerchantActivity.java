@@ -19,6 +19,7 @@ public class MerchantActivity extends AppCompatActivity {
     private Button btnReservationList;
     private Button btnOrderDetails;
     private Button btncreateqrcode;
+    private Button btncreateproduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MerchantActivity extends AppCompatActivity {
         btnReservationList = findViewById(R.id.btn_reservation_list);
         btnOrderDetails = findViewById(R.id.btn_order_details);
         btncreateqrcode = findViewById(R.id.btn_create_qrcode);
+        btncreateproduct = findViewById(R.id.btn_create_product);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -49,6 +51,9 @@ public class MerchantActivity extends AppCompatActivity {
                 } else if (id == R.id.btn_create_qrcode) {
                     Intent intent = new Intent(MerchantActivity.this, CreateQRcode.class);
                     startActivity(intent);
+                } else if (id == R.id.btn_create_product) {
+//                    Intent intent = new Intent(MerchantActivity.this, CreateProduct.class);
+//                    startActivity(intent);
                 }
             }
         };
@@ -56,5 +61,6 @@ public class MerchantActivity extends AppCompatActivity {
         btnReservationList.setOnClickListener(listener);
         btnOrderDetails.setOnClickListener(listener);
         btncreateqrcode.setOnClickListener(listener);
+        btncreateproduct.setOnClickListener(listener);
     }
 }
