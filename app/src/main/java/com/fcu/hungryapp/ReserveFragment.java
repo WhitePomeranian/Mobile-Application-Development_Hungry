@@ -1,25 +1,22 @@
 package com.fcu.hungryapp;
 
-import android.annotation.SuppressLint;
+import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
+
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -46,6 +43,8 @@ public class ReserveFragment extends Fragment {
     private Spinner spDineDate;
     private Spinner spChair;
 
+    private List<ToggleButton> toggleButtons;
+
     public ReserveFragment() {
 
     }
@@ -66,7 +65,7 @@ public class ReserveFragment extends Fragment {
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         shopInfodatabaseReference = FirebaseDatabase.getInstance().getReference("shopInfo");
-
+        // 拿不到shop_id
 //        shopInfodatabaseReference.child(SeatActivity.getShop_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 //            @SuppressLint("SetTextI18n")
 //            @Override
@@ -123,7 +122,48 @@ public class ReserveFragment extends Fragment {
         chairAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spChair.setAdapter(chairAdapter);
 
+        toggleButtons = new ArrayList<>();
+        for (int hour = 11; hour <= 21; hour++) {
+            for (int minute = 0; minute <= 30; minute += 30) {
+                String buttonId = "tb_" + String.format("%02d", hour) + String.format("%02d", minute);
+                int resId = getResources().getIdentifier(buttonId, "id", getActivity().getPackageName());
+                ToggleButton temp = rootView.findViewById(resId);
+                String t = String.format("%02d", hour) + ":" + String.format("%02d", minute);
+                temp.setText(t);
+                temp.setTextOff(t); // 設置為空字符串，不顯示 "OFF"
+                temp.setTextOn(t);  // 設置為空字符串，不顯示 "ON"
+                toggleButtons.add(rootView.findViewById(resId));
+                if(hour == 21) {
+                    break;
+                }
+            }
+        }
+
+        for (ToggleButton toggleButton : toggleButtons) {
+            toggleButton.setOnClickListener(this::onToggleClicked);
+            // 設置初始狀態的文字顏色
+            toggleButton.setTextColor(Color.parseColor("#000000"));
+            toggleButton.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
+        }
+
         return rootView;
+    }
+
+    public void onToggleClicked(View view) {
+        ToggleButton clickedButton = (ToggleButton) view;
+        if (clickedButton.isChecked()) {
+            for (ToggleButton toggleButton : toggleButtons) {
+                if (toggleButton != clickedButton) {
+                    toggleButton.setChecked(false);
+                    toggleButton.setTextColor(Color.parseColor("#000000"));
+                }
+            }
+            // 設置選中狀態的文字顏色
+            clickedButton.setTextColor(Color.parseColor("#4BB2F9"));
+        } else {
+            // 設置未選中狀態的文字顏色
+            clickedButton.setTextColor(Color.parseColor("#000000"));
+        }
     }
 
 
