@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,7 +78,7 @@ public class CreateShopActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         // query放在editText
-        String shopId = "";
+        String shopId = user.getUid();
         DatabaseReference shopRef = database.getReference("ShopInfo").child(shopId);
         shopRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,10 +87,25 @@ public class CreateShopActivity extends AppCompatActivity {
                     String name = dataSnapshot.child("name").getValue(String.class);
                     String address = dataSnapshot.child("address").getValue(String.class);
                     String phone = dataSnapshot.child("phone").getValue(String.class);
+                    String startTime = dataSnapshot.child("start_time").getValue(String.class);
+                    String endTime = dataSnapshot.child("end_time").getValue(String.class);
+                    String imageUrl = dataSnapshot.child("image").getValue(String.class);
 
                     et_shopname.setText(name);
                     et_shopAddress.setText(address);
                     et_shopPhone.setText(phone);
+
+                    String[] timeArray = getResources().getStringArray(R.array.time_array);
+                    for(int i = 0; i < timeArray.length; i++) {
+                        if(startTime.equals(timeArray[i])) {
+                            sp_start.setSelection(i);
+                        }
+                        if(endTime.equals(timeArray[i])) {
+                            sp_end.setSelection(i);
+                        }
+                    }
+
+                    Glide.with(CreateShopActivity.this).load(imageUrl).into(img_shopcreate);
                 }
             }
 
