@@ -1,6 +1,5 @@
 package com.fcu.hungryapp;
 
-import static android.content.Intent.getIntent;
 import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
 
 import android.annotation.SuppressLint;
@@ -64,7 +63,7 @@ public class ReserveFragment extends Fragment {
         tvShopName = rootView.findViewById(R.id.tv_reverse_shop_name);
         tvShopPhone = rootView.findViewById(R.id.tv_reverse_shop_phone);
         tvShopAddress = rootView.findViewById(R.id.tv_reverse_shop_address);
-        spAdult = rootView.findViewById(R.id.sp_adult);
+        spAdult = rootView.findViewById(R.id.sp_reserve_meal_time);
         spChild = rootView.findViewById(R.id.sp_child);
         spDineDate = rootView.findViewById(R.id.sp_dine_date);
         spChair = rootView.findViewById(R.id.sp_chair);
