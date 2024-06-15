@@ -28,6 +28,15 @@
         android:theme="@style/Theme.Hungry"
         tools:targetApi="31">
         <activity
+            android:name=".FragmentOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentReverseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment_reserve"
+            android:exported="false" />
+        <activity
             android:name=".YourOrdersActivity"
             android:exported="false" />
         <activity
