@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -135,6 +136,7 @@ public class ReserveFragment extends Fragment {
         chairAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spChair.setAdapter(chairAdapter);
 
+
         toggleButtons = new ArrayList<>();
         for (int hour = 11; hour <= 21; hour++) {
             for (int minute = 0; minute <= 30; minute += 30) {
@@ -159,6 +161,82 @@ public class ReserveFragment extends Fragment {
             toggleButton.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
         }
 
+
+
+
+
+        Calendar now = Calendar.getInstance();
+        int currentHour = now.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = now.get(Calendar.MINUTE);
+
+        spDineDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 String selectedDate = dateList.get(position);
+                 boolean isToday = selectedDate.equals(sdf.format(Calendar.getInstance().getTime()));
+
+                 // 清除舊的按鈕狀態
+                 for (ToggleButton toggleButton : toggleButtons) {
+                     toggleButton.setEnabled(true);
+                     toggleButton.setTextColor(Color.parseColor("#000000"));
+                     toggleButton.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
+                 }
+
+                 for (int hour = 11; hour <= 21; hour++) {
+                     for (int minute = 0; minute <= 30; minute += 30) {
+                         String buttonId = "tb_" + String.format("%02d", hour) + String.format("%02d", minute);
+                         int resId = getResources().getIdentifier(buttonId, "id", getActivity().getPackageName());
+                         ToggleButton temp = rootView.findViewById(resId);
+                         String t = String.format("%02d", hour) + ":" + String.format("%02d", minute);
+                         temp.setText(t);
+                         temp.setTextOff(t); // 設置為空字符串，不顯示 "OFF"
+                         temp.setTextOn(t);  // 設置為空字符串，不顯示 "ON"
+
+                         if (isToday) {
+                             Calendar allowedTime = Calendar.getInstance();
+                             allowedTime.add(Calendar.HOUR_OF_DAY, 3);
+                             int allowedHour = allowedTime.get(Calendar.HOUR_OF_DAY);
+                             int allowedMinute = allowedTime.get(Calendar.MINUTE);
+
+                             if (hour < allowedHour || (hour == allowedHour && minute < allowedMinute)) {
+                                 temp.setEnabled(false);
+                                 temp.setTextColor(Color.parseColor("#FFFFFF")); // 設置為灰色
+                             } else {
+                                 temp.setEnabled(true);
+                                 temp.setTextColor(Color.parseColor("#000000"));
+                                 temp.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
+                             }
+                         } else {
+                             temp.setEnabled(true);
+                             temp.setTextColor(Color.parseColor("#000000"));
+                             temp.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
+                         }
+
+                         toggleButtons.add(temp);
+
+                         if (hour == 21) {
+                             break;
+                         }
+                     }
+                 }
+             }
+
+             @Override
+             public void onNothingSelected(AdapterView<?> parent) {
+
+             }
+        });
+
+        // 手動觸發 onItemSelected 以設置初始狀態
+        // 預設選擇當日
+        String today = sdf.format(Calendar.getInstance().getTime());
+        int todayPosition = dateAdapter.getPosition(today);
+        spDineDate.setSelection(todayPosition);
+        spDineDate.post(() -> spDineDate.setSelection(todayPosition));
+
+
+
+
         return rootView;
     }
 
@@ -168,7 +246,11 @@ public class ReserveFragment extends Fragment {
             for (ToggleButton toggleButton : toggleButtons) {
                 if (toggleButton != clickedButton) {
                     toggleButton.setChecked(false);
-                    toggleButton.setTextColor(Color.parseColor("#000000"));
+                    if(toggleButton.isEnabled()) {
+                        toggleButton.setTextColor(Color.parseColor("#000000"));
+                    } else {
+                        toggleButton.setTextColor(Color.parseColor("#FFFFFF"));
+                    }
                 }
             }
             // 設置選中狀態的文字顏色

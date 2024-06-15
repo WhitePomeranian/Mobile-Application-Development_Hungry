@@ -104,13 +104,9 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShopInfo select = shops.get(position);
                 String shop_id = select.getShop_id();
-                System.out.println(shop_id);
-                ReserveFragment fragment = new ReserveFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString(SHOP_ID_VALUE, shop_id);
-                fragment.setArguments(bundle);
 
                 Intent intent = new Intent(SearchShop.this, SeatActivity.class);
+                intent.putExtra(SHOP_ID_VALUE, shop_id);
                 startActivity(intent);
             }
         });

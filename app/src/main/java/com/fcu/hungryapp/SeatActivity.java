@@ -1,5 +1,6 @@
 package com.fcu.hungryapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,14 +54,12 @@ public class SeatActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_seat);
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
-            shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
-        }
+        Intent intent = getIntent();
+        String shopId = intent.getStringExtra(SearchShop.SHOP_ID_VALUE);
 
         tlMain = findViewById(R.id.tl_main);
         vp2Main = findViewById(R.id.vp2_main);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, shopId);
         vp2Main.setAdapter(viewPagerAdapter);
 
         new TabLayoutMediator(tlMain, vp2Main,
