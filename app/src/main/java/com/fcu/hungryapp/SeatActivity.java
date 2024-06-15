@@ -33,9 +33,14 @@ public class SeatActivity extends AppCompatActivity {
 //    private String name;
 //    private String email;
 //    private Boolean check_spinner = false;
+    static private String shop_id = "";
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
+
+    static public String getShop_id() {
+        return shop_id;
+    }
 
     public int order_count;
 
@@ -47,6 +52,11 @@ public class SeatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_seat);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
+        }
 
         tlMain = findViewById(R.id.tl_main);
         vp2Main = findViewById(R.id.vp2_main);
@@ -96,7 +106,7 @@ public class SeatActivity extends AppCompatActivity {
 //        Bundle bundle = getIntent().getExtras();
 //        if(bundle != null){
 //            shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
-////            Toast.makeText(SeatActivity.this, shop_id, Toast.LENGTH_LONG).show();
+//            Toast.makeText(SeatActivity.this, shop_id, Toast.LENGTH_LONG).show();
 //        }
 //
 //        auth = FirebaseAuth.getInstance();
