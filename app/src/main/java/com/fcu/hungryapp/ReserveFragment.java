@@ -1,18 +1,17 @@
 package com.fcu.hungryapp;
 
-import static android.content.Intent.getIntent;
-import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
-
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -33,6 +32,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class ReserveFragment extends Fragment {
+    private String shop_id_reserve;
+
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -72,14 +73,12 @@ public class ReserveFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         shopInfodatabaseReference = FirebaseDatabase.getInstance().getReference("ShopInfo");
 
-        String shop_id = "";
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
-        }
+        SeatActivity activity = (SeatActivity) getActivity();
+        shop_id_reserve = activity.getShop_id();
+        Log.d("check reserve shop id", shop_id_reserve);
 
-        System.out.println(shop_id);
-        shopInfodatabaseReference.child(shop_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        shopInfodatabaseReference.child(shop_id_reserve).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {

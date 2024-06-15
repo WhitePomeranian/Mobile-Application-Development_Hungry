@@ -37,7 +37,7 @@
             android:name=".FragmentOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".FragmentReverseActivity"
+            android:name=".ReserveFragment"
             android:exported="false" />
         <activity
             android:name=".fragment_reserve"

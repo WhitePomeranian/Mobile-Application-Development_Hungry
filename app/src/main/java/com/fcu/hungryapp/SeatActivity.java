@@ -2,6 +2,7 @@ package com.fcu.hungryapp;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -33,14 +34,10 @@ public class SeatActivity extends AppCompatActivity {
 //    private String name;
 //    private String email;
 //    private Boolean check_spinner = false;
-    static private String shop_id = "";
+    public String shop_id;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
-
-    static public String getShop_id() {
-        return shop_id;
-    }
 
     public int order_count;
 
@@ -56,6 +53,7 @@ public class SeatActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
+            Log.d("check shop id in seatActivity", shop_id);
         }
 
         tlMain = findViewById(R.id.tl_main);
@@ -250,5 +248,8 @@ public class SeatActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+    }
+    public String getShop_id(){
+        return shop_id;
     }
 }
