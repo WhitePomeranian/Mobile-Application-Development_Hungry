@@ -1,7 +1,9 @@
 package com.fcu.hungryapp;
 
+import static android.content.Intent.getIntent;
 import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,10 +15,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -64,24 +70,31 @@ public class ReserveFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        shopInfodatabaseReference = FirebaseDatabase.getInstance().getReference("shopInfo");
-        // 拿不到shop_id
-//        shopInfodatabaseReference.child(SeatActivity.getShop_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    String user_info = String.valueOf(task.getResult().getValue());
+        shopInfodatabaseReference = FirebaseDatabase.getInstance().getReference("ShopInfo");
 
-//                    String shopName = extractValue(user_info, "name");
-//                    String shopPhone = extractValue(user_info, "phone");
-//
-//                    tvShopName.setText(shopName);
-//                    tvShopPhone.setText(shopPhone);
-//
-//                }
-//            }
-//        });
+        String shop_id = "";
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
+        }
+
+        System.out.println(shop_id);
+        shopInfodatabaseReference.child(shop_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    String user_info = String.valueOf(task.getResult().getValue());
+
+                    String shopName = extractValue(user_info, "name");
+                    String shopPhone = extractValue(user_info, "phone");
+
+                    tvShopName.setText(shopName);
+                    tvShopPhone.setText(shopPhone);
+
+                }
+            }
+        });
 
         String[] spinnerAdultItems = {"1位大人", "2位大人", "3位大人", "4位大人", "5位大人", "6位大人", "7位大人", "8位大人"
             , "9位大人", "10位大人"};
