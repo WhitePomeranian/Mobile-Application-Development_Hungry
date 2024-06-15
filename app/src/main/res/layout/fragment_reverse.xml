@@ -183,7 +183,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton20"
+                    android:id="@+id/tb_1100"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="32dp"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/tb_1130"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -191,15 +198,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton21"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="32dp"
-                    android:layout_weight="1"
-                    android:text="ToggleButton" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton22"
+                    android:id="@+id/tb_1200"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -216,7 +215,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton8"
+                    android:id="@+id/tb_1230"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -224,7 +223,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton10"
+                    android:id="@+id/tb_1300"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -232,7 +231,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton9"
+                    android:id="@+id/tb_1330"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -252,14 +251,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton11"
+                    android:id="@+id/tb_1400"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton13"
+                    android:id="@+id/tb_1430"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -267,7 +266,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton12"
+                    android:id="@+id/tb_1500"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -305,7 +304,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView11">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton14"
+                    android:id="@+id/tb_1530"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -313,7 +312,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton15"
+                    android:id="@+id/tb_1600"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -321,7 +320,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton16"
+                    android:id="@+id/tb_1630"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -340,7 +339,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton"
+                    android:id="@+id/tb_1700"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -348,7 +347,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton3"
+                    android:id="@+id/tb_1730"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -356,7 +355,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton2"
+                    android:id="@+id/tb_1800"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -373,7 +372,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton6"
+                    android:id="@+id/tb_1830"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -381,7 +380,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton5"
+                    android:id="@+id/tb_1900"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -389,7 +388,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton4"
+                    android:id="@+id/tb_1930"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -406,7 +405,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton7"
+                    android:id="@+id/tb_2000"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -414,7 +413,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton17"
+                    android:id="@+id/tb_2030"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="32dp"
@@ -422,7 +421,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton18"
+                    android:id="@+id/tb_2100"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -438,6 +437,7 @@
                 android:background="@drawable/button_background"
                 android:text="送出"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout9"
