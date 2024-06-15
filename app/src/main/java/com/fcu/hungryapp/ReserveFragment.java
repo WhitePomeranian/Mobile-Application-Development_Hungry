@@ -63,6 +63,7 @@ public class ReserveFragment extends Fragment {
 
         tvShopName = rootView.findViewById(R.id.tv_reverse_shop_name);
         tvShopPhone = rootView.findViewById(R.id.tv_reverse_shop_phone);
+        tvShopAddress = rootView.findViewById(R.id.tv_reverse_shop_address);
         spAdult = rootView.findViewById(R.id.sp_adult);
         spChild = rootView.findViewById(R.id.sp_child);
         spDineDate = rootView.findViewById(R.id.sp_dine_date);
@@ -89,9 +90,14 @@ public class ReserveFragment extends Fragment {
 
                     String shopName = extractValue(user_info, "name");
                     String shopPhone = extractValue(user_info, "phone");
+                    String shopAddress = extractValue(user_info, "address");
+
+                    shopPhone = "Tel: " + shopPhone;
+                    shopAddress = "地址: " + shopAddress;
 
                     tvShopName.setText(shopName);
                     tvShopPhone.setText(shopPhone);
+                    tvShopAddress.setText(shopAddress);
 
                 }
             }
