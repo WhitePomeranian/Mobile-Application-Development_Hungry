@@ -54,6 +54,7 @@ public class CreateShopActivity extends AppCompatActivity {
     private Spinner sp_start;
     private Spinner sp_end;
     private Button btn_save;
+    private Button btn_person_info;
 
     private Uri imgURI;
 
@@ -72,6 +73,7 @@ public class CreateShopActivity extends AppCompatActivity {
         sp_start = findViewById(R.id.sp_start);
         sp_end= findViewById(R.id.sp_end);
         btn_save = findViewById(R.id.btn_shop_info_save);
+        btn_person_info = findViewById(R.id.btn_shop_info_personal_info);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -187,6 +189,13 @@ public class CreateShopActivity extends AppCompatActivity {
                 } else{
                     Toast.makeText(CreateShopActivity.this, "Please select image and fill all entry", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        btn_person_info.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateShopActivity.this, FrontPage.class);
+                startActivity(intent);
             }
         });
     }
