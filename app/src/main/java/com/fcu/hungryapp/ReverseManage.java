@@ -3,7 +3,6 @@ package com.fcu.hungryapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,7 +42,7 @@ public class ReverseManage extends AppCompatActivity implements ReversesInfoAdap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_manage);
+        setContentView(R.layout.activity_reverse_manage);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();

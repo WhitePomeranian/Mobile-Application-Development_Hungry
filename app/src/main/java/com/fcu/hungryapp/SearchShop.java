@@ -161,7 +161,11 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
             startActivity(intent);
             return true;
         } else if(id == R.id.nav_orders) {
-            Intent intent = new Intent(SearchShop.this, QRcode_scanner.class);
+            // Intent intent = new Intent(SearchShop.this, PersonalReversesActivity.class);
+            // startActivity(intent);
+            return true;
+        } else if(id == R.id.nav_reverses) {
+            Intent intent = new Intent(SearchShop.this, PersonalReversesActivity.class);
             startActivity(intent);
             return true;
         }

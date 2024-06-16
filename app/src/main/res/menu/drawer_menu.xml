@@ -8,4 +8,8 @@
         android:id="@+id/nav_orders"
         android:icon="@drawable/order"
         android:title="你的訂單" />
+    <item
+        android:id="@+id/nav_reverses"
+        android:icon="@drawable/booking"
+        android:title="你的訂位" />
 </menu>
