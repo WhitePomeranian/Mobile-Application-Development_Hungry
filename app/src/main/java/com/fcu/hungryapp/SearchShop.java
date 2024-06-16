@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -61,6 +63,9 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         Intent intent = getIntent();
         boolean showToast = intent.getBooleanExtra("reverse_success", false);
@@ -125,6 +130,7 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
 
         // drawer
         drawerLayout = findViewById(R.id.drawer_layout);
+
         tbSearchShop = findViewById(R.id.tb_search_shop);
         nvDrawer = findViewById(R.id.nv_drawer);
         nvDrawer.setItemIconTintList(null);
@@ -135,6 +141,29 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
         toggle.syncState();
 
         nvDrawer.setNavigationItemSelectedListener(this);
+
+        View drawerHeaderView = nvDrawer.getHeaderView(0);
+        TextView tvDrawerHeader = drawerHeaderView.findViewById(R.id.tv_drawer_header);
+
+
+        DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference("users");
+        Query query = userDatabaseReference.orderByKey().equalTo(user.getUid());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String s = snapshot.child(user.getUid()).child("name").getValue(String.class) + ", 您好~";
+                    tvDrawerHeader.setText(s);
+                } else {
+                    Log.d("Firebase", "UserID不存在");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         fab_camera.setOnClickListener(new View.OnClickListener() {
             @Override

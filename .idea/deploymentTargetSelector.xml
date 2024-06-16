@@ -2,11 +2,7 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-<<<<<<< HEAD
       <SelectionState runConfigName="MainActivity">
-=======
-      <SelectionState runConfigName="Hungry.app">
->>>>>>> 9b42a98bd14455e3dcb1dfac8a99baaa76fd39a2
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
