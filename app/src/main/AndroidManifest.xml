@@ -31,10 +31,10 @@
             android:name=".PersonalReversesActivity"
             android:exported="false" />
         <activity
-            android:name=".Strore_dine_in_pay_details"
+            android:name=".StroreDineInPayDetails"
             android:exported="false" />
         <activity
-            android:name=".Store_dine_in_details"
+            android:name=".StoreDineInDetails"
             android:exported="false" />
         <activity
             android:name=".CustomerMealDetails"

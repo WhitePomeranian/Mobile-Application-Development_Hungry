@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Strore_dine_in_pay_details">
+    tools:context=".StroreDineInPayDetails">
 
     <TextView
         android:id="@+id/tv_show_tablenumber"
