@@ -5,7 +5,7 @@
     <string name="email_title">Email</string>
     <string name="email_hint">fcu123@gmail.com</string>
     <string name="password_title">密碼</string>
-    <string name="password_hint">16字元↑ (需含大小寫字母、數字和特殊符號)</string>
+    <string name="password_hint">12字元↑ (需含大小寫字母、數字和特殊符號)</string>
     <string name="confirm_password_title">確認密碼</string>
     <string name="confirm_password_hint">輸入的密碼需一致</string>
     <string name="phone_title">手機號碼</string>

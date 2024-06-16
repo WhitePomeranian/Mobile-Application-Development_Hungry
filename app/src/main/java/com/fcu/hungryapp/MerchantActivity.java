@@ -12,14 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.DataOutputStream;
-
 public class MerchantActivity extends AppCompatActivity {
 
     private Button btnReservationList;
     private Button btnOrderDetails;
     private Button btncreateqrcode;
     private Button btncreateproduct;
+    private Button btnShopInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +35,14 @@ public class MerchantActivity extends AppCompatActivity {
         btnOrderDetails = findViewById(R.id.btn_order_details);
         btncreateqrcode = findViewById(R.id.btn_create_qrcode);
         btncreateproduct = findViewById(R.id.btn_create_product);
+        btnShopInfo = findViewById(R.id.btn_shop_info);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = v.getId();
                 if(id == R.id.btn_reservation_list) {
-                    Intent intent = new Intent(MerchantActivity.this, OrderManage.class);
+                    Intent intent = new Intent(MerchantActivity.this, ReverseManage.class);
                     startActivity(intent);
                 } else if(id == R.id.btn_order_details) {
                     Toast.makeText(MerchantActivity.this, "no function yet", Toast.LENGTH_LONG).show();
@@ -52,8 +52,11 @@ public class MerchantActivity extends AppCompatActivity {
                     Intent intent = new Intent(MerchantActivity.this, CreateQRcode.class);
                     startActivity(intent);
                 } else if (id == R.id.btn_create_product) {
-//                    Intent intent = new Intent(MerchantActivity.this, CreateProduct.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(MerchantActivity.this, CreateProductActivity.class);
+                    startActivity(intent);
+                } else if(id == R.id.btn_shop_info) {
+                    Intent intent = new Intent(MerchantActivity.this, CreateShopActivity.class);
+                    startActivity(intent);
                 }
             }
         };
@@ -62,5 +65,6 @@ public class MerchantActivity extends AppCompatActivity {
         btnOrderDetails.setOnClickListener(listener);
         btncreateqrcode.setOnClickListener(listener);
         btncreateproduct.setOnClickListener(listener);
+        btnShopInfo.setOnClickListener(listener);
     }
 }

@@ -28,28 +28,25 @@
         android:theme="@style/Theme.Hungry"
         tools:targetApi="31">
         <activity
-            android:name=".SearchQRcode"
+            android:name=".CreateProductActivity"
             android:exported="false" />
         <activity
-            android:name=".Customer_selection"
+            android:name=".PersonalReversesActivity"
             android:exported="false" />
         <activity
-            android:name=".Store_select_mode"
+            android:name=".StroreDineInPayDetails"
             android:exported="false" />
         <activity
-            android:name=".FragmentOrderActivity"
+            android:name=".StoreDineInDetails"
             android:exported="false" />
         <activity
-            android:name=".FragmentReverseActivity"
+            android:name=".CustomerMealDetails"
             android:exported="false" />
         <activity
-            android:name=".fragment_reserve"
+            android:name=".CustomerMealTime"
             android:exported="false" />
         <activity
-            android:name=".YourOrdersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInfoActivity"
+            android:name=".ReserveFragment"
             android:exported="false" />
         <activity
             android:name=".CreateQRcode"
@@ -58,7 +55,7 @@
             android:name=".QRcode_scanner"
             android:exported="false" />
         <activity
-            android:name=".OrderManage"
+            android:name=".ReverseManage"
             android:exported="false" />
         <activity
             android:name=".CreateShopActivity"

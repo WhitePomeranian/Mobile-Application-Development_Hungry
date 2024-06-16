@@ -1,5 +1,7 @@
 package com.fcu.hungryapp;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -9,16 +11,21 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    private final String shopId;
+
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, String shopId) {
         super(fragmentActivity);
+        this.shopId = shopId;
     }
 
-    public ViewPagerAdapter(@NonNull Fragment fragment) {
+    public ViewPagerAdapter(@NonNull Fragment fragment, String shopId) {
         super(fragment);
+        this.shopId = shopId;
     }
 
-    public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, String shopId) {
         super(fragmentManager, lifecycle);
+        this.shopId = shopId;
     }
 
     @NonNull
@@ -26,7 +33,11 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new ReserveFragment();
+                Fragment fragment = new ReserveFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(SearchShop.SHOP_ID_VALUE, shopId);
+                fragment.setArguments(bundle);
+                return fragment;
             case 1:
                 return new OrderFragment();
             default:

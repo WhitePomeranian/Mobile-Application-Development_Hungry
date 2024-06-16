@@ -1,79 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".CreateShopActivity">
 
-    <ImageView
-        android:id="@+id/img_shopcreate"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_add_to_photos_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/et_shopname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_shopcreate" />
+        <!-- Your existing UI components go here -->
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_shopname">
+        <ImageView
+            android:id="@+id/img_shopcreate"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/baseline_add_to_photos_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="280dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="營業時間" />
-
-        <Spinner
-            android:id="@+id/sp_start"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/et_shopname"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:hint="商店名稱"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_shopcreate" />
 
-        <Spinner
-            android:id="@+id/sp_end"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_shop_info_save"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_background"
+            android:text="儲存商店資訊"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <Button
-        android:id="@+id/bt_create"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="建立商店"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        <EditText
+            android:id="@+id/et_shopInfo_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="店家地址"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/et_shopname"
+            app:layout_constraintStart_toStartOf="@+id/et_shopname"
+            app:layout_constraintTop_toBottomOf="@+id/et_shopname" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/et_shop_info_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="商家電話"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="@+id/et_shopInfo_address"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/et_shopInfo_address"
+            app:layout_constraintTop_toBottomOf="@+id/et_shopInfo_address" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_shop_info_phone">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="營業時間" />
+
+            <Spinner
+                android:id="@+id/sp_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/sp_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_shop_info_personal_info"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/button_background"
+            android:text="個人帳戶資訊"
+            android:textStyle="normal|bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_shop_info_save"
+            app:layout_constraintStart_toStartOf="@+id/btn_shop_info_save"
+            app:layout_constraintTop_toBottomOf="@+id/btn_shop_info_save" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

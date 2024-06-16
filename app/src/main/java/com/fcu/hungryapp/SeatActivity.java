@@ -1,7 +1,9 @@
 package com.fcu.hungryapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -33,14 +35,10 @@ public class SeatActivity extends AppCompatActivity {
 //    private String name;
 //    private String email;
 //    private Boolean check_spinner = false;
-    static private String shop_id = "";
+    public String shop_id;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
-
-    static public String getShop_id() {
-        return shop_id;
-    }
 
     public int order_count;
 
@@ -53,14 +51,14 @@ public class SeatActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_seat);
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
-            shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
-        }
+
+        Intent intent = getIntent();
+        String shopId = intent.getStringExtra(SearchShop.SHOP_ID_VALUE);
+
 
         tlMain = findViewById(R.id.tl_main);
         vp2Main = findViewById(R.id.vp2_main);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, shopId);
         vp2Main.setAdapter(viewPagerAdapter);
 
         new TabLayoutMediator(tlMain, vp2Main,
@@ -250,5 +248,8 @@ public class SeatActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+    }
+    public String getShop_id(){
+        return shop_id;
     }
 }
