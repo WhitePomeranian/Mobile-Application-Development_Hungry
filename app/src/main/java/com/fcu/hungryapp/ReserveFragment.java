@@ -3,41 +3,62 @@ package com.fcu.hungryapp;
 import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ReserveFragment extends Fragment {
+
+    private String userName = "";
+    private String userPhone = "";
 
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference shopInfodatabaseReference;
+    private DatabaseReference reverseDatabaseRef;
+
+
+    Map<String, String> map = new HashMap<>();
 
 
     private TextView tvShopName;
@@ -50,6 +71,8 @@ public class ReserveFragment extends Fragment {
     private Spinner spChair;
 
     private List<ToggleButton> toggleButtons;
+
+    private Button btnSave;
 
     public ReserveFragment() {
 
@@ -67,11 +90,13 @@ public class ReserveFragment extends Fragment {
         spChild = rootView.findViewById(R.id.sp_child);
         spDineDate = rootView.findViewById(R.id.sp_dine_date);
         spChair = rootView.findViewById(R.id.sp_chair);
+        btnSave = rootView.findViewById(R.id.btn_save_reverse);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         shopInfodatabaseReference = FirebaseDatabase.getInstance().getReference("ShopInfo");
+
 
         String shop_id = "";
         Bundle bundle = getArguments();
@@ -79,7 +104,31 @@ public class ReserveFragment extends Fragment {
             shop_id = bundle.getString(SearchShop.SHOP_ID_VALUE);
         }
 
-        System.out.println(shop_id);
+
+        DatabaseReference userRef = database.getReference("users").child(user.getUid());
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userName = dataSnapshot.child("name").getValue(String.class);
+                    userPhone = dataSnapshot.child("phone").getValue(String.class);
+
+                    map.put("customer_id", user.getUid());
+                    map.put("customer_name", userName);
+                    map.put("customer_email", user.getEmail());
+                    map.put("customer_phone", userPhone);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        map.put("shop_id", shop_id);
+
+
         shopInfodatabaseReference.child(shop_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -112,6 +161,18 @@ public class ReserveFragment extends Fragment {
 
         spAdult.setAdapter(adultAdapter);
 
+        spAdult.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                map.put("adult", parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         String[] spinnerChildItems = {"0位小孩", "1位小孩", "2位小孩", "3位小孩", "4位小孩", "5位小孩"};
 
         ArrayAdapter<String> childAdapter = new ArrayAdapter<>(getActivity(),
@@ -120,6 +181,18 @@ public class ReserveFragment extends Fragment {
         childAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spChild.setAdapter(childAdapter);
+
+        spChild.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                map.put("child", parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         List<String> dateList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -134,12 +207,36 @@ public class ReserveFragment extends Fragment {
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDineDate.setAdapter(dateAdapter);
 
+        spDineDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                map.put("dine_date", parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         String[] spinnerChairItems = {"0張", "1張", "2張", "3張", "4張", "5張"};
 
         ArrayAdapter<String> chairAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, spinnerChairItems);
         chairAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spChair.setAdapter(chairAdapter);
+
+        spChair.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                map.put("chair", parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         toggleButtons = new ArrayList<>();
@@ -178,6 +275,7 @@ public class ReserveFragment extends Fragment {
              @Override
              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                  String selectedDate = dateList.get(position);
+                 map.put("dine_time", parent.getItemAtPosition(position).toString());
                  boolean isToday = selectedDate.equals(sdf.format(Calendar.getInstance().getTime()));
 
                  // 清除舊的按鈕狀態
@@ -239,6 +337,38 @@ public class ReserveFragment extends Fragment {
         spDineDate.setSelection(todayPosition);
         spDineDate.post(() -> spDineDate.setSelection(todayPosition));
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                reverseDatabaseRef = FirebaseDatabase.getInstance().getReference("shop_reverses");
+
+                reverseDatabaseRef.child(map.get("shop_id")).setValue(map).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("Firebase", "Data sent successfully.");
+                    } else {
+                        Log.e("Firebase", "Data sending failed.", task.getException());
+                    }
+                });
+
+                reverseDatabaseRef = FirebaseDatabase.getInstance().getReference("personal_reverses");
+
+                reverseDatabaseRef.child(user.getUid()).setValue(map).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("Firebase", "Data sent successfully.");
+                    } else {
+                        Log.e("Firebase", "Data sending failed.", task.getException());
+                    }
+                });
+
+                Intent intent = new Intent(getActivity(), SearchShop.class);
+                intent.putExtra("reverse_success", true);
+                startActivity(intent);
+
+
+            }
+        });
+
 
 
 
@@ -280,4 +410,6 @@ public class ReserveFragment extends Fragment {
         }
         return input.substring(startIndex, endIndex).trim();
     }
+
+
 }

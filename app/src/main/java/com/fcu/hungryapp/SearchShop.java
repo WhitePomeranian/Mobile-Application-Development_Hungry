@@ -62,6 +62,12 @@ public class SearchShop extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop);
 
+        Intent intent = getIntent();
+        boolean showToast = intent.getBooleanExtra("reverse_success", false);
+        if (showToast) {
+            Toast.makeText(this, "訂位成功!", Toast.LENGTH_SHORT).show();
+        }
+
         String message = getIntent().getStringExtra("message");
         if (message != null) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
