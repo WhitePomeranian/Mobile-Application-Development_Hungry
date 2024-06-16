@@ -30,6 +30,7 @@ public class ReversesInfoAdapter extends ArrayAdapter<Reverse> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.reverses_info_layout, parent, false);
         }
 
+
         // 獲取列表項中的各個TextView
         TextView tvName = listItem.findViewById(R.id.tv_reverses_name);
         TextView tvEmail = listItem.findViewById(R.id.tv_reverses_email);
