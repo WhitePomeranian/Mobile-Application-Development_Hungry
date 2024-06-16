@@ -294,12 +294,23 @@ public class ReserveFragment extends Fragment {
                          temp.setTextOn(t);  // 設置為空字符串，不顯示 "ON"
 
                          if (isToday) {
+                             Calendar now = Calendar.getInstance();
                              Calendar allowedTime = Calendar.getInstance();
                              allowedTime.add(Calendar.HOUR_OF_DAY, 3);
+
+                             // 計算允許的時間，包括跨天的情況
+                             int allowedYear = allowedTime.get(Calendar.YEAR);
+                             int allowedMonth = allowedTime.get(Calendar.MONTH);
+                             int allowedDay = allowedTime.get(Calendar.DAY_OF_MONTH);
                              int allowedHour = allowedTime.get(Calendar.HOUR_OF_DAY);
                              int allowedMinute = allowedTime.get(Calendar.MINUTE);
 
-                             if (hour < allowedHour || (hour == allowedHour && minute < allowedMinute)) {
+                             Calendar targetTime = Calendar.getInstance();
+                             targetTime.set(Calendar.HOUR_OF_DAY, hour);
+                             targetTime.set(Calendar.MINUTE, minute);
+
+                             // 如果目標時間在允許時間之前，禁用按鈕
+                             if (targetTime.before(allowedTime)) {
                                  temp.setEnabled(false);
                                  temp.setTextColor(Color.parseColor("#FFFFFF")); // 設置為灰色
                              } else {
@@ -312,6 +323,7 @@ public class ReserveFragment extends Fragment {
                              temp.setTextColor(Color.parseColor("#000000"));
                              temp.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
                          }
+
 
                          toggleButtons.add(temp);
 

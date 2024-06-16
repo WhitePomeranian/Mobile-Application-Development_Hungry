@@ -132,12 +132,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     swUsers.setText("商家");
-                    tvRegisterName.setText("商店名稱");
-                    etRegisterName.setHint("考魚 (僅能包含英文、數字、底線和中文)");
                     isShop = true;
                 } else{
                     swUsers.setText("一般用戶");
-                    tvRegisterName.setText("姓名");
                     etRegisterName.setHint("王小明 (僅能包含英文、數字、底線和中文)");
                     isShop = false;
                 }
