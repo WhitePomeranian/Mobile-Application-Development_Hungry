@@ -89,8 +89,12 @@ public class RegisterActivity extends AppCompatActivity {
                     etRegisterPassword.setError("Password require");
                     return;
                 }
-                if(Password.length()<8){
-                    etRegisterPassword.setError("Password should be >= 8 letter");
+                if(Password.length()<12){
+                    etRegisterPassword.setError("Password should be >= 12 letter");
+                    return;
+                }
+                if (!Password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{12,}$")) {
+                    etRegisterPassword.setError("Password should contain at least one uppercase, one lowercase, one digit, and one special character");
                     return;
                 }
                 if(Confirm_Password.isEmpty()){

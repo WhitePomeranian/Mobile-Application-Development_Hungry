@@ -136,8 +136,12 @@ public class FrontPage extends AppCompatActivity {
                             et_user_phone.setError("Phone number require");
                             return;
                         }
-                        if(!Password.isEmpty() && Password.length()<8){
+                        if(!Password.isEmpty() && Password.length()<12){
                             et_user_password.setError("Password should be >= 8 letter");
+                            return;
+                        }
+                        if (!Password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{12,}$")) {
+                            et_user_password.setError("Password should contain at least one uppercase, one lowercase, one digit, and one special character");
                             return;
                         }
                         if(!Password.isEmpty() && Confirm_Password.isEmpty()){
