@@ -28,6 +28,12 @@
         android:theme="@style/Theme.Hungry"
         tools:targetApi="31">
         <activity
+            android:name=".Strore_dine_in_pay_details"
+            android:exported="false" />
+        <activity
+            android:name=".Store_dine_in_details"
+            android:exported="false" />
+        <activity
             android:name=".CustomerMealDetails"
             android:exported="false" />
         <activity
