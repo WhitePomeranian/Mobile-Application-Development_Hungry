@@ -3,8 +3,8 @@ package com.fcu.hungryapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,9 +25,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-public class OrderManage extends AppCompatActivity {
+public class ReverseManage extends AppCompatActivity implements ReversesInfoAdapter.OnItemRemovedListener {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -63,7 +62,7 @@ public class OrderManage extends AppCompatActivity {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        ArrayAdapter<String> dateAdapter = new ArrayAdapter<>(OrderManage.this, android.R.layout.simple_spinner_item, dateList);
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<>(ReverseManage.this, android.R.layout.simple_spinner_item, dateList);
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spReverseDate.setAdapter(dateAdapter);
 
@@ -105,7 +104,7 @@ public class OrderManage extends AppCompatActivity {
 
                 }
 
-                ReversesInfoAdapter adapter = new ReversesInfoAdapter(OrderManage.this, dataList);
+                ReversesInfoAdapter adapter = new ReversesInfoAdapter(ReverseManage.this, dataList, ReverseManage.this);
                 lvShopReverses.setAdapter(adapter);
             }
 
@@ -114,5 +113,10 @@ public class OrderManage extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onItemRemoved() {
+        queryReverse();
     }
 }

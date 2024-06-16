@@ -12,8 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.DataOutputStream;
-
 public class MerchantActivity extends AppCompatActivity {
 
     private Button btnReservationList;
@@ -44,7 +42,7 @@ public class MerchantActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int id = v.getId();
                 if(id == R.id.btn_reservation_list) {
-                    Intent intent = new Intent(MerchantActivity.this, OrderManage.class);
+                    Intent intent = new Intent(MerchantActivity.this, ReverseManage.class);
                     startActivity(intent);
                 } else if(id == R.id.btn_order_details) {
                     Toast.makeText(MerchantActivity.this, "no function yet", Toast.LENGTH_LONG).show();

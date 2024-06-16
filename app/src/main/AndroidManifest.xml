@@ -61,7 +61,7 @@
             android:name=".QRcode_scanner"
             android:exported="false" />
         <activity
-            android:name=".OrderManage"
+            android:name=".ReverseManage"
             android:exported="false" />
         <activity
             android:name=".CreateShopActivity"
