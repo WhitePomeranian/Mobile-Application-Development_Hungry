@@ -31,31 +31,19 @@
             android:name=".PersonalReversesActivity"
             android:exported="false" />
         <activity
+            android:name=".Strore_dine_in_pay_details"
+            android:exported="false" />
+        <activity
+            android:name=".Store_dine_in_details"
+            android:exported="false" />
+        <activity
             android:name=".CustomerMealDetails"
             android:exported="false" />
         <activity
             android:name=".CustomerMealTime"
             android:exported="false" />
         <activity
-            android:name=".Customer_selection"
-            android:exported="false" />
-        <activity
-            android:name=".Store_select_mode"
-            android:exported="false" />
-        <activity
-            android:name=".FragmentOrderActivity"
-            android:exported="false" />
-        <activity
             android:name=".ReserveFragment"
-            android:exported="false" />
-        <activity
-            android:name=".fragment_reserve"
-            android:exported="false" />
-        <activity
-            android:name=".YourOrdersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInfoActivity"
             android:exported="false" />
         <activity
             android:name=".CreateQRcode"
