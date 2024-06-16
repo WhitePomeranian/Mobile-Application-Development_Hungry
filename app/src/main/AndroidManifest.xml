@@ -28,6 +28,9 @@
         android:theme="@style/Theme.Hungry"
         tools:targetApi="31">
         <activity
+            android:name=".CreateProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".PersonalReversesActivity"
             android:exported="false" />
         <activity

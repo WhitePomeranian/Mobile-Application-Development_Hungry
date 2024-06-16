@@ -52,8 +52,8 @@ public class MerchantActivity extends AppCompatActivity {
                     Intent intent = new Intent(MerchantActivity.this, CreateQRcode.class);
                     startActivity(intent);
                 } else if (id == R.id.btn_create_product) {
-//                    Intent intent = new Intent(MerchantActivity.this, CreateProduct.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(MerchantActivity.this, CreateProductActivity.class);
+                    startActivity(intent);
                 } else if(id == R.id.btn_shop_info) {
                     Intent intent = new Intent(MerchantActivity.this, CreateShopActivity.class);
                     startActivity(intent);
