@@ -1,5 +1,6 @@
 package com.fcu.hungryapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateProductActivity extends AppCompatActivity {
+    public static final String MEALS_TYPE = "mealtype";
 
     private Map<String, String> map = new HashMap<>();
 
@@ -40,6 +42,11 @@ public class CreateProductActivity extends AppCompatActivity {
     private EditText etClass3;
     private EditText etClass4;
     private Button btnNextStep;
+    
+    private Button bt_class1;
+    private Button bt_class2;
+    private Button bt_class3;
+    private Button bt_class4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,11 @@ public class CreateProductActivity extends AppCompatActivity {
         etClass4 = findViewById(R.id.et_class4);
 
         btnNextStep = findViewById(R.id.btn_next_step_add_food);
+        
+        bt_class1 = findViewById(R.id.bt_class1);
+        bt_class2 = findViewById(R.id.bt_class2);
+        bt_class3 = findViewById(R.id.bt_class3);
+        bt_class4 = findViewById(R.id.bt_class4);
 
 
 
@@ -84,7 +96,7 @@ public class CreateProductActivity extends AppCompatActivity {
 
                     map.put("shop_id", user.getUid());
 
-                    MealsDatabaseRef = FirebaseDatabase.getInstance().getReference("Meals");
+                    MealsDatabaseRef = FirebaseDatabase.getInstance().getReference("Meals_type");
                     MealsDatabaseRef.child(user.getUid()).setValue(map).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Log.d("Firebase", "Data sent successfully.");
@@ -93,10 +105,12 @@ public class CreateProductActivity extends AppCompatActivity {
                         }
                     });
                 }
+                startActivity(new Intent(CreateProductActivity.this, MerchantActivity.class));
+                finish();
             }
         });
 
-        MealsDatabaseRef = FirebaseDatabase.getInstance().getReference("Meals");
+        MealsDatabaseRef = FirebaseDatabase.getInstance().getReference("Meals_type");
         MealsDatabaseRef.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -108,6 +122,7 @@ public class CreateProductActivity extends AppCompatActivity {
                     String class4 = extractValue(meals,"class4");
 
 
+                    btnNextStep.setText("確認修改");
                     etClass1.setText(class1);
                     etClass2.setText(class2);
                     etClass3.setText(class3);
@@ -116,6 +131,32 @@ public class CreateProductActivity extends AppCompatActivity {
                 }
             }
         });
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = view.getId();
+                Intent intent = new Intent(CreateProductActivity.this, CreateProductList.class);
+
+                if(id == R.id.bt_class1){
+                    intent.putExtra(MEALS_TYPE, etClass1.getText().toString());
+                } else if (id == R.id.bt_class2) {
+                    intent.putExtra(MEALS_TYPE, etClass2.getText().toString());
+                } else if (id == R.id.bt_class3) {
+                    intent.putExtra(MEALS_TYPE, etClass3.getText().toString());
+                } else if (id == R.id.bt_class4) {
+                    intent.putExtra(MEALS_TYPE, etClass4.getText().toString());
+                }
+                startActivity(intent);
+
+            }
+        };
+
+        bt_class1.setOnClickListener(listener);
+        bt_class2.setOnClickListener(listener);
+        bt_class3.setOnClickListener(listener);
+        bt_class4.setOnClickListener(listener);
+        
     }
     static String extractValue(String input, String key) {
         String keyWithEquals = key + "=";
