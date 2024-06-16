@@ -166,3 +166,4 @@ public class CreateShopActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(fileUri));
     }
 }
+

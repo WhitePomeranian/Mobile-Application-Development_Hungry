@@ -207,3 +207,4 @@ public class FrontPage extends AppCompatActivity {
                 .show();
     }
 }
+
