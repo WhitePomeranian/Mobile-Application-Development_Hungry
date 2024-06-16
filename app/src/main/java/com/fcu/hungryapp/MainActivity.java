@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(isShop.equals("true")){
                         startActivity(new Intent(MainActivity.this, MerchantActivity.class));
-//                        finish();
+                        finish();
                     } else{
                         startActivity(new Intent(MainActivity.this, SearchShop.class));
                         finish();

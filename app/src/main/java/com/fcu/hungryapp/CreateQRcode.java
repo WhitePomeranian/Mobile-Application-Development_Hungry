@@ -75,7 +75,7 @@ public class CreateQRcode extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String table_num = et_tablenum.getText().toString();
-                if(table_num != null){
+                if(!table_num.equals("")){
                     tv_table.setText("桌號為: " + table_num);
 
                     BarcodeEncoder encoder = new BarcodeEncoder();

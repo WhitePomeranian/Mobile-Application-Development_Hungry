@@ -49,6 +49,7 @@ public class CreateProductDetail extends AppCompatActivity {
     private EditText et_product_price;
     private EditText et_product_describe;
     private Button bt_done_edit;
+    private Button bt_delete;
 
     private Uri imgURI;
     public int count;
@@ -68,6 +69,7 @@ public class CreateProductDetail extends AppCompatActivity {
         et_product_describe = findViewById(R.id.et_product_describe);
 
         bt_done_edit = findViewById(R.id.bt_done_edit);
+        bt_delete = findViewById(R.id.bt_delete);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -76,6 +78,9 @@ public class CreateProductDetail extends AppCompatActivity {
         Intent intent5 = getIntent();
         key = intent5.getStringExtra(CreateProductList.PRODUCT_INFO);
         if(key != null){
+
+            bt_delete.setVisibility(View.VISIBLE);
+
             Log.d("key check send", key);
             DatabaseReference editreference = database.getReference("Meals_list").child(user.getUid()).child(key);
             editreference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -160,8 +165,8 @@ public class CreateProductDetail extends AppCompatActivity {
                         map.put("product_describe", describe);
                         map.put("type",type);
                         databaseReference.child(user.getUid()).child(key).setValue(map);
-                        Intent intent = new Intent(CreateProductDetail.this, CreateProductActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(CreateProductDetail.this, CreateProductActivity.class);
+//                        startActivity(intent);
                         finish();
                     } else{
                         Intent intent = getIntent();
@@ -170,6 +175,14 @@ public class CreateProductDetail extends AppCompatActivity {
                     }
 
                 }
+            }
+        });
+
+        bt_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference.child(user.getUid()).child(key).removeValue();
+                finish();
             }
         });
 
@@ -218,8 +231,8 @@ public class CreateProductDetail extends AppCompatActivity {
                         });
 
 
-                        Intent intent = new Intent(CreateProductDetail.this, CreateProductActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(CreateProductDetail.this, CreateProductActivity.class);
+//                        startActivity(intent);
                         finish();
                     }
                 });
