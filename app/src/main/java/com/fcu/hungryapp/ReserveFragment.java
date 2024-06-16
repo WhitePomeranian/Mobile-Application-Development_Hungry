@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -207,18 +208,6 @@ public class ReserveFragment extends Fragment {
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDineDate.setAdapter(dateAdapter);
 
-        spDineDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                map.put("dine_date", parent.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         String[] spinnerChairItems = {"0張", "1張", "2張", "3張", "4張", "5張"};
 
         ArrayAdapter<String> chairAdapter = new ArrayAdapter<>(getActivity(),
@@ -261,8 +250,17 @@ public class ReserveFragment extends Fragment {
             // 設置初始狀態的文字顏色
             toggleButton.setTextColor(Color.parseColor("#000000"));
             toggleButton.setTypeface(Typeface.create("bold_font", Typeface.BOLD));
-        }
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        map.put("dine_time", buttonView.getText().toString());
+                    } else {
 
+                    }
+                }
+            });
+        }
 
 
 
@@ -275,7 +273,7 @@ public class ReserveFragment extends Fragment {
              @Override
              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                  String selectedDate = dateList.get(position);
-                 map.put("dine_time", parent.getItemAtPosition(position).toString());
+                 map.put("dine_date", parent.getItemAtPosition(position).toString());
                  boolean isToday = selectedDate.equals(sdf.format(Calendar.getInstance().getTime()));
 
                  // 清除舊的按鈕狀態
@@ -342,18 +340,9 @@ public class ReserveFragment extends Fragment {
             public void onClick(View v) {
 
                 reverseDatabaseRef = FirebaseDatabase.getInstance().getReference("shop_reverses");
-
-                reverseDatabaseRef.child(map.get("shop_id")).setValue(map).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("Firebase", "Data sent successfully.");
-                    } else {
-                        Log.e("Firebase", "Data sending failed.", task.getException());
-                    }
-                });
-
-                reverseDatabaseRef = FirebaseDatabase.getInstance().getReference("personal_reverses");
-
-                reverseDatabaseRef.child(user.getUid()).setValue(map).addOnCompleteListener(task -> {
+                String reverse_id = reverseDatabaseRef.push().getKey();
+                map.put("reverse_id", reverse_id);
+                reverseDatabaseRef.child(reverse_id).setValue(map).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d("Firebase", "Data sent successfully.");
                     } else {

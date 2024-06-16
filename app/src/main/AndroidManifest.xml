@@ -28,10 +28,10 @@
         android:theme="@style/Theme.Hungry"
         tools:targetApi="31">
         <activity
-            android:name=".customer_reserve_meal_details"
+            android:name=".CustomerMealDetails"
             android:exported="false" />
         <activity
-            android:name=".customer_reserve_meal_time"
+            android:name=".CustomerMealTime"
             android:exported="false" />
         <activity
             android:name=".Customer_selection"

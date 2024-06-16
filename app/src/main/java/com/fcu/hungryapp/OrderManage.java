@@ -1,63 +1,118 @@
 package com.fcu.hungryapp;
 
-import static com.fcu.hungryapp.FrontPage.extractValue;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class OrderManage extends AppCompatActivity {
+
     private FirebaseAuth auth;
     private FirebaseUser user;
-    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("OrderInfo");
-    private ListView lv_orderready;
+    private FirebaseDatabase database;
+    private DatabaseReference reverseDatabaseRef;
+
+    private Spinner spReverseDate;
+    private ListView lvShopReverses;
+
+    private List<Reverse> dataList = new ArrayList<>();
+
+    private String selectDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_manage);
 
-        lv_orderready = findViewById(R.id.lv_orderready);
-
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
 
-        List<OrderInfo> orders = new ArrayList<>();
+        spReverseDate = findViewById(R.id.sp_reverse_date);
+        lvShopReverses = findViewById(R.id.lv_shop_reverses);
 
-        databaseReference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        List<String> dateList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        for (int i = 0; i < 31; i++) {
+            dateList.add(sdf.format(calendar.getTime()));
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<>(OrderManage.this, android.R.layout.simple_spinner_item, dateList);
+        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spReverseDate.setAdapter(dateAdapter);
+
+        spReverseDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot dataSnapshot = task.getResult();
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String key = snapshot.getKey();
-                        OrderInfo value = snapshot.getValue(OrderInfo.class);
-                        Log.e("snapshot", key + ",," + value);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectDay = parent.getItemAtPosition(position).toString();
+                queryReverse();
+            }
 
-                        orders.add(value);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        spReverseDate.setSelection(0);
+        spReverseDate.post(() -> spReverseDate.setSelection(0));
+        selectDay = spReverseDate.getItemAtPosition(0).toString();
+
+
+    }
+
+    private void queryReverse() {
+        reverseDatabaseRef = FirebaseDatabase.getInstance().getReference("shop_reverses");
+
+        Query query = reverseDatabaseRef.orderByChild("shop_id").equalTo(user.getUid());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataList = new ArrayList<>();
+                for (DataSnapshot a_snapshot : snapshot.getChildren()) {
+                    Reverse reverse = a_snapshot.getValue(Reverse.class);
+                    if(reverse.getDine_date().equals(selectDay)) {
+                        dataList.add(reverse);
                     }
-                    OrderInfoAdapter adapter = new OrderInfoAdapter(OrderManage.this, orders);
-                    lv_orderready.setAdapter(adapter);
+
                 }
+
+                ReversesInfoAdapter adapter = new ReversesInfoAdapter(OrderManage.this, dataList);
+                lvShopReverses.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
-
 }
