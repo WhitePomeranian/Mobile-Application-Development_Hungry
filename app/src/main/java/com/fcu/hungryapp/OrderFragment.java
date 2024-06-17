@@ -195,6 +195,45 @@ public class OrderFragment extends Fragment {
                     tbClass1.setText(class1);
                     tbClass1.setTextOff(class1);
                     tbClass1.setTextOn(class1);
+
+                    if(class2.isEmpty()) {
+                        tbClass2.setVisibility(View.INVISIBLE);
+                        tvClass2.setVisibility(View.INVISIBLE);
+                        viewc2.setVisibility(View.INVISIBLE);
+                        vhc2.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvClass2.setText(class2);
+                        tbClass2.setText(class2);
+                        tbClass2.setTextOff(class2);
+                        tbClass2.setTextOn(class2);
+                    }
+
+                    if(class3.isEmpty()) {
+                        tbClass3.setVisibility(View.INVISIBLE);
+                        tvClass3.setVisibility(View.INVISIBLE);
+                        viewc3.setVisibility(View.INVISIBLE);
+                        vhc3.setVisibility(View.INVISIBLE);
+
+                    } else {
+                        tvClass3.setText(class3);
+                        tbClass3.setText(class3);
+                        tbClass3.setTextOff(class3);
+                        tbClass3.setTextOn(class3);
+                    }
+
+
+                    if(class4.isEmpty()) {
+                        tbClass4.setVisibility(View.INVISIBLE);
+                        tvClass4.setVisibility(View.INVISIBLE);
+                        viewc4.setVisibility(View.INVISIBLE);
+                        vhc4.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvClass4.setText(class4);
+                        tbClass4.setText(class4);
+                        tbClass4.setTextOff(class4);
+                        tbClass4.setTextOn(class4);
+                    }
+
                     databaseReference = FirebaseDatabase.getInstance().getReference("Meals_list");
                     Query query = databaseReference
                             .orderByKey()
@@ -203,6 +242,9 @@ public class OrderFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             dataList1 = new ArrayList<>();
+                            dataList2 = new ArrayList<>();
+                            dataList3 = new ArrayList<>();
+                            dataList4 = new ArrayList<>();
 
                             for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                 // 遍歷每個產品
@@ -221,85 +263,43 @@ public class OrderFragment extends Fragment {
                                 }
                             }
 
-                            ProductAdapter adapter = new ProductAdapter(getActivity(), dataList1);
-                            lv1.setAdapter(adapter);
+                            ProductAdapter adapter1 = new ProductAdapter(getActivity(), dataList1);
+                            lv1.setAdapter(adapter1);
+
+                            if(!class2.isEmpty()) {
+                                ProductAdapter adapter2 = new ProductAdapter(getActivity(), dataList2);
+                                lv2.setAdapter(adapter2);
+                            }
+
+                            if(!class3.isEmpty()) {
+                                ProductAdapter adapter3 = new ProductAdapter(getActivity(), dataList3);
+                                lv3.setAdapter(adapter3);
+                            }
+
+                            if(!class4.isEmpty()) {
+                                ProductAdapter adapter4 = new ProductAdapter(getActivity(), dataList4);
+                                lv4.setAdapter(adapter4);
+                            }
+
+
+
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Log.e("Firebase", "onCancelled", error.toException());
                         }
                     });
-
-
-
-                    if(class2.isEmpty()) {
-                        tbClass2.setVisibility(View.INVISIBLE);
-                        tvClass2.setVisibility(View.INVISIBLE);
-                        viewc2.setVisibility(View.INVISIBLE);
-                        vhc2.setVisibility(View.INVISIBLE);
-                    } else {
-                        tvClass2.setText(class2);
-                        tbClass2.setText(class2);
-                        tbClass2.setTextOff(class2);
-                        tbClass2.setTextOn(class2);
-
-                        ProductAdapter adapter = new ProductAdapter(getActivity(), dataList2);
-                        lv2.setAdapter(adapter);
-
-
-                    }
-
-                    if(class3.isEmpty()) {
-                        tbClass3.setVisibility(View.INVISIBLE);
-                        tvClass3.setVisibility(View.INVISIBLE);
-                        viewc3.setVisibility(View.INVISIBLE);
-                        vhc3.setVisibility(View.INVISIBLE);
-
-                    } else {
-                        tvClass3.setText(class3);
-                        tbClass3.setText(class3);
-                        tbClass3.setTextOff(class3);
-                        tbClass3.setTextOn(class3);
-
-                        ProductAdapter adapter = new ProductAdapter(getActivity(), dataList3);
-                        lv3.setAdapter(adapter);
-                    }
-
-
-                    if(class4.isEmpty()) {
-                        tbClass4.setVisibility(View.INVISIBLE);
-                        tvClass4.setVisibility(View.INVISIBLE);
-                        viewc4.setVisibility(View.INVISIBLE);
-                        vhc4.setVisibility(View.INVISIBLE);
-                    } else {
-                        tvClass4.setText(class4);
-                        tbClass4.setText(class4);
-                        tbClass4.setTextOff(class4);
-                        tbClass4.setTextOn(class4);
-
-                        ProductAdapter adapter = new ProductAdapter(getActivity(), dataList4);
-                        lv4.setAdapter(adapter);
-                    }
-
-
                 } else {
-                    Log.d("Firebase", "UserID不存在");
+                    Log.d("Firebase", "Shop ID 不存在");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("Firebase", "onCancelled", error.toException());
             }
         });
-
-
-
-
-
-
-
 
         return rootView;
     }

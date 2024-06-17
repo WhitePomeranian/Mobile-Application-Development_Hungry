@@ -75,6 +75,28 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         tvPrice.setText(s);
         Glide.with(listItem).load(item.getProduct_image()).into(ivProduct);
 
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num = Integer.parseInt(etNum.getText().toString());
+                if(num != 10) {
+                    num++;
+                    etNum.setText(String.valueOf(num));
+                }
+            }
+        });
+
+        btnMinor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num = Integer.parseInt(etNum.getText().toString());
+                if(num != 0) {
+                    num--;
+                    etNum.setText(String.valueOf(num));
+                }
+            }
+        });
+
 
         return listItem;
     }
