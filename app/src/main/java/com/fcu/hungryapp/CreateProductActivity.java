@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -48,6 +49,11 @@ public class CreateProductActivity extends AppCompatActivity {
     private Button bt_class3;
     private Button bt_class4;
 
+    private ListView lv_class1;
+    private ListView lv_class2;
+    private ListView lv_class3;
+    private ListView lv_class4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +80,12 @@ public class CreateProductActivity extends AppCompatActivity {
         bt_class2 = findViewById(R.id.bt_class2);
         bt_class3 = findViewById(R.id.bt_class3);
         bt_class4 = findViewById(R.id.bt_class4);
+
+
+        lv_class1 = findViewById(R.id.lv_class1);
+        lv_class2 = findViewById(R.id.lv_class2);
+        lv_class3 = findViewById(R.id.lv_class3);
+        lv_class4 = findViewById(R.id.lv_class4);
 
 
 

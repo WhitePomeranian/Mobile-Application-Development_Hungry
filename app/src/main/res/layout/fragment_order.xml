@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_order_shop_name"
     android:layout_width="match_parent"
-    android:background="#EEFAFC"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EEFAFC">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,11 +23,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="140dp"
                 android:background="#97C4F9"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_booking_shop_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -39,22 +39,22 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tv_booking_shop_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintStart_toStartOf="@+id/tv_booking_shop_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_booking_shop_name" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tv_booking_shop_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintStart_toStartOf="@+id/tv_booking_shop_address"
+                app:layout_constraintTop_toBottomOf="@+id/tv_booking_shop_address" />
 
             <View
                 android:id="@+id/view4"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/sp_booking_time"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="24dp"
@@ -97,7 +97,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/view4">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton"
+                    android:id="@+id/tb_class1"
                     android:layout_width="45dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="5dp"
@@ -105,7 +105,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton2"
+                    android:id="@+id/tb_class2"
                     android:layout_width="45dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="5dp"
@@ -113,7 +113,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton3"
+                    android:id="@+id/tb_class3"
                     android:layout_width="45dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="5dp"
@@ -121,7 +121,7 @@
                     android:text="ToggleButton" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton4"
+                    android:id="@+id/tb_class4"
                     android:layout_width="45dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="5dp"
@@ -141,7 +141,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/tv_class1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -162,136 +162,129 @@
                 app:layout_constraintTop_toBottomOf="@+id/view5" />
 
             <ListView
-                android:id="@+id/listView"
-                android:layout_width="409dp"
-                android:layout_height="50dp"
+                android:id="@+id/lv_class1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
 
             <View
-                android:id="@+id/view6"
+                android:id="@+id/viewc2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="#F5F5F5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listView" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class1" />
 
             <View
-                android:id="@+id/view100"
+                android:id="@+id/vhc2"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:background="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view6" />
+                app:layout_constraintTop_toBottomOf="@+id/viewc2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tv_class2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/view6"
+                app:layout_constraintBottom_toBottomOf="@+id/viewc2"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/listView" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class1" />
 
             <ListView
-                android:id="@+id/listView2"
-                android:layout_width="409dp"
-                android:layout_height="50dp"
+                android:id="@+id/lv_class2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view100" />
+                app:layout_constraintTop_toBottomOf="@+id/vhc2" />
 
             <View
-                android:id="@+id/view7"
+                android:id="@+id/viewc3"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="#F5F5F5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listView2" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class2" />
 
             <View
-                android:id="@+id/view300"
+                android:id="@+id/vhc3"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:background="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view7" />
+                app:layout_constraintTop_toBottomOf="@+id/viewc3" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/tv_class3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/view7"
+                app:layout_constraintBottom_toBottomOf="@+id/viewc3"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/listView2" />
-
-            <View
-                android:id="@+id/view8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/view300"
-                tools:layout_editor_absoluteX="1dp" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class2" />
 
             <ListView
-                android:id="@+id/listView3"
-                android:layout_width="409dp"
-                android:layout_height="50dp"
+                android:id="@+id/lv_class3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view300" />
+                app:layout_constraintTop_toBottomOf="@+id/vhc3" />
 
             <View
-                android:id="@+id/view9"
+                android:id="@+id/viewc4"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="#F5F5F5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listView3" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class3" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/tv_class4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/view9"
+                app:layout_constraintBottom_toBottomOf="@+id/viewc4"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/listView3" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class3" />
 
             <View
-                android:id="@+id/view30"
+                android:id="@+id/vhc4"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:background="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view9" />
+                app:layout_constraintTop_toBottomOf="@+id/viewc4" />
 
             <ListView
-                android:id="@+id/listView4"
-                android:layout_width="409dp"
-                android:layout_height="50dp"
+                android:id="@+id/lv_class4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view30" />
+                app:layout_constraintTop_toBottomOf="@+id/vhc4" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button2"
@@ -320,7 +313,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listView4" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_class4" />
 
             <ImageButton
                 android:id="@+id/imageButton"

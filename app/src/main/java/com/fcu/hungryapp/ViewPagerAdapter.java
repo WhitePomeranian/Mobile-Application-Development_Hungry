@@ -39,7 +39,11 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 fragment.setArguments(bundle);
                 return fragment;
             case 1:
-                return new OrderFragment();
+                Fragment fragment2 = new OrderFragment();
+                Bundle bundle2 = new Bundle();
+                bundle2.putString(SearchShop.SHOP_ID_VALUE, shopId);
+                fragment2.setArguments(bundle2);
+                return fragment2;
             default:
                 return new ReserveFragment();
         }
